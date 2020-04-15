@@ -5,10 +5,10 @@ namespace ElmaSecondTry.Controllers
 {
     public class HomeController : Controller
     {
-        private IUserRepository _userRepository;
-        public HomeController(IUserRepository userRepository)
+        private IEntityRepository _entityRepository;
+        public HomeController(IEntityRepository entityRepository)
         {
-            _userRepository = userRepository;
+            _entityRepository = entityRepository;
         }
         
         public ActionResult Index()

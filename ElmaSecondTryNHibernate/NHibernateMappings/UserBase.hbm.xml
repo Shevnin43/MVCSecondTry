@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns = "urn:nhibernate-mapping-2.2"
+   assembly = "ElmaSecondTry" namespace = "ElmaSecondTryNHibernate">
+
+
+    <class name="UserBase">
+      <id name="Id">
+        <generator class ="guid"/>
+      </id>
+      <property name="Login"/>
+      <property name="Password"/>
+      <property name="Role"/>
+      <property name="Name"/>
+      <property name="About"/>
+      <property name="Phone"/>
+      <property name="Email"/>
+      <property name="RegisterDate"/>
+    </class>
+
+  </hibernate-mapping>

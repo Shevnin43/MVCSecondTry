@@ -15,12 +15,12 @@ namespace ElmaSecondTry.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IEntityRepository _entityRepository;
         private readonly IMapper _mapper;
         
-        public AccountController(IUserRepository userRepository, IMapper mapper)
+        public AccountController(IEntityRepository entityRepository, IMapper mapper)
         {
-            _userRepository = userRepository;
+            _entityRepository = entityRepository;
             _mapper = mapper;
         }
 
@@ -59,7 +59,7 @@ namespace ElmaSecondTry.Controllers
             {
                 return RedirectToAction("Index", "Home"); //TOREDO
             }
-            _userRepository.Create(_mapper.Map<Registration, UserBase>(registration));
+            _entityRepository.CreateUser(_mapper.Map<Registration, UserBase>(registration));
             //tempUsers.Add(new TempUser { Id = Guid.NewGuid(), Login = registration.Login, Password = registration.Password, Role = registration.Role, RegisterDate = DateTime.Now }); //TOREDO
             FormsAuthentication.SetAuthCookie(registration.Login, true);
             return RedirectToAction("Index", "Home"); // TOREDO
