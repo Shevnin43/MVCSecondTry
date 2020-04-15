@@ -9,3 +9,5 @@ D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaS
 D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\ElmaSecondTryNHibernate.pdb
 D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.dll
 D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.pdb
+D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\hibernate.cfg.xml
+D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\NHibernateMappings\UserBase.hbm.xml

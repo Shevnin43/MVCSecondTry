@@ -11,8 +11,9 @@ namespace ElmaSecondTry.App_Start
     using ElmaSecondTry.Models.Account;
     using ElmaSecondTry.Models.User;
     using ElmaSecondTryBase.Entities;
+    using ElmaSecondTryNHibernate;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
+    using NHibernate;
     using Ninject;
     using Ninject.Web.Common;
 
@@ -48,6 +49,7 @@ namespace ElmaSecondTry.App_Start
             try
             {
                 var mapperConfiguration = Mappings.ConfigureMapping();
+                kernel.Bind<ISession>().ToProvider<HibernateHelper>();
                 kernel.Bind<IMapper>().ToConstructor(c => new Mapper(mapperConfiguration)).InSingletonScope();
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();

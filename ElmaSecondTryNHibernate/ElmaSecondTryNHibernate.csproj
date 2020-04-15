@@ -5,11 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="XMLFile1.xml" />
+    <None Remove="hibernate.cfg.xml" />
+    <None Remove="UserDb.hbm.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="XMLFile1.xml">
+    <EmbeddedResource Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NHibernateMappings\UserBase.hbm.xml">
       <CustomToolNamespace>ElmaSecondTryNHibernate</CustomToolNamespace>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -17,6 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
   </ItemGroup>
 
   <ItemGroup>

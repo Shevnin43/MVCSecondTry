@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using Ninject;
 using ElmaSecondTryBase.Repositories;
 using ElmaSecondTryNHibernate.Repositories;
+using ElmaSecondTryNHibernate;
+using NHibernate;
 
 namespace ElmaSecondTry.Helpers
 {
@@ -29,9 +31,8 @@ namespace ElmaSecondTry.Helpers
 
         private void AddBindings()
         {
-            kernel.Bind<IUserRepository>().To<UserRepository>();
-            kernel.Bind<IVacancyRepository>().To<VacancyRepository>();
-            kernel.Bind<ICandidateRepository>().To<CandidateRepository>();
+            kernel.Bind<IEntityRepository>().To<EntityRepository>();
+            //kernel.Bind<ISession>().To<HibernateHelper>();
         }
     }
 }
