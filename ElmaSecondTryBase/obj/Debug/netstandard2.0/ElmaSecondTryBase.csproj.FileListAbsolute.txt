@@ -1,0 +1,8 @@
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\obj\Debug\netstandard2.0\ElmaSecondTryBase.AssemblyInfoInputs.cache
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\obj\Debug\netstandard2.0\ElmaSecondTryBase.AssemblyInfo.cs
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\bin\Debug\netstandard2.0\ElmaSecondTryBase.deps.json
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\bin\Debug\netstandard2.0\ElmaSecondTryBase.dll
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\bin\Debug\netstandard2.0\ElmaSecondTryBase.pdb
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\obj\Debug\netstandard2.0\ElmaSecondTryBase.dll
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\obj\Debug\netstandard2.0\ElmaSecondTryBase.pdb
+D:\Projects\ElmaSecondTry\ElmaSecondTryBase\obj\Debug\netstandard2.0\ElmaSecondTryBase.csprojAssemblyReference.cache

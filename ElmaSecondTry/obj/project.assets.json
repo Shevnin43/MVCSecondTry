@@ -1,0 +1,648 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.7.2": {
+      "AutoMapper/9.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/net461/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net461/AutoMapper.dll": {}
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
+      "Ninject/3.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45-full/Ninject.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.dll": {}
+        }
+      },
+      "Ninject.MVC3/3.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)",
+          "Ninject.Web.Common.WebHost": "3.0.0"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ],
+        "compile": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        }
+      },
+      "Ninject.Web.Common/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        }
+      },
+      "Ninject.Web.Common.WebHost/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject.Web.Common": "[3.2.0, 3.3.0)",
+          "WebActivatorEx": "[2.0.0, 3.0.0)"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ]
+      },
+      "WebActivatorEx/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net40/WebActivatorEx.dll": {}
+        },
+        "runtime": {
+          "lib/net40/WebActivatorEx.dll": {}
+        }
+      },
+      "ElmaSecondTryBase/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "Ninject.MVC3": "3.2.1"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        }
+      },
+      "ElmaSecondTryNHibernate/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "ElmaSecondTryBase": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.7.2/win": {
+      "AutoMapper/9.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/net461/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net461/AutoMapper.dll": {}
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
+      "Ninject/3.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45-full/Ninject.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.dll": {}
+        }
+      },
+      "Ninject.MVC3/3.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)",
+          "Ninject.Web.Common.WebHost": "3.0.0"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ],
+        "compile": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        }
+      },
+      "Ninject.Web.Common/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        }
+      },
+      "Ninject.Web.Common.WebHost/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject.Web.Common": "[3.2.0, 3.3.0)",
+          "WebActivatorEx": "[2.0.0, 3.0.0)"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ]
+      },
+      "WebActivatorEx/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net40/WebActivatorEx.dll": {}
+        },
+        "runtime": {
+          "lib/net40/WebActivatorEx.dll": {}
+        }
+      },
+      "ElmaSecondTryBase/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "Ninject.MVC3": "3.2.1"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        }
+      },
+      "ElmaSecondTryNHibernate/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "ElmaSecondTryBase": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.7.2/win-x64": {
+      "AutoMapper/9.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/net461/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net461/AutoMapper.dll": {}
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
+      "Ninject/3.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45-full/Ninject.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.dll": {}
+        }
+      },
+      "Ninject.MVC3/3.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)",
+          "Ninject.Web.Common.WebHost": "3.0.0"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ],
+        "compile": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        }
+      },
+      "Ninject.Web.Common/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        }
+      },
+      "Ninject.Web.Common.WebHost/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject.Web.Common": "[3.2.0, 3.3.0)",
+          "WebActivatorEx": "[2.0.0, 3.0.0)"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ]
+      },
+      "WebActivatorEx/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net40/WebActivatorEx.dll": {}
+        },
+        "runtime": {
+          "lib/net40/WebActivatorEx.dll": {}
+        }
+      },
+      "ElmaSecondTryBase/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "Ninject.MVC3": "3.2.1"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        }
+      },
+      "ElmaSecondTryNHibernate/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "ElmaSecondTryBase": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.7.2/win-x86": {
+      "AutoMapper/9.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/net461/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net461/AutoMapper.dll": {}
+        }
+      },
+      "Microsoft.Web.Infrastructure/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
+        }
+      },
+      "Ninject/3.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45-full/Ninject.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.dll": {}
+        }
+      },
+      "Ninject.MVC3/3.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)",
+          "Ninject.Web.Common.WebHost": "3.0.0"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ],
+        "compile": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Mvc.dll": {}
+        }
+      },
+      "Ninject.Web.Common/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "[3.2.0, 3.3.0)"
+        },
+        "compile": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        },
+        "runtime": {
+          "lib/net45-full/Ninject.Web.Common.dll": {}
+        }
+      },
+      "Ninject.Web.Common.WebHost/3.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Ninject.Web.Common": "[3.2.0, 3.3.0)",
+          "WebActivatorEx": "[2.0.0, 3.0.0)"
+        },
+        "frameworkAssemblies": [
+          "Microsoft.Web.Infrastructure"
+        ]
+      },
+      "WebActivatorEx/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Web.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "lib/net40/WebActivatorEx.dll": {}
+        },
+        "runtime": {
+          "lib/net40/WebActivatorEx.dll": {}
+        }
+      },
+      "ElmaSecondTryBase/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "Ninject.MVC3": "3.2.1"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryBase.dll": {}
+        }
+      },
+      "ElmaSecondTryNHibernate/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "ElmaSecondTryBase": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ElmaSecondTryNHibernate.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AutoMapper/9.0.0": {
+      "sha512": "xCqvoxT4HIrNY/xlXG9W+BA/awdrhWvMTKTK/igkGSRbhOhpl3Q8O8Gxlhzjc9JsYqE7sS6AxgyuUUvZ6R5/Bw==",
+      "type": "package",
+      "path": "automapper/9.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automapper.9.0.0.nupkg.sha512",
+        "automapper.nuspec",
+        "lib/net461/AutoMapper.dll",
+        "lib/net461/AutoMapper.pdb",
+        "lib/net461/AutoMapper.xml",
+        "lib/netstandard2.0/AutoMapper.dll",
+        "lib/netstandard2.0/AutoMapper.pdb",
+        "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
+    "Microsoft.Web.Infrastructure/1.0.0": {
+      "sha512": "FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
+      "type": "package",
+      "path": "microsoft.web.infrastructure/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Microsoft.Web.Infrastructure.dll",
+        "microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+        "microsoft.web.infrastructure.nuspec"
+      ]
+    },
+    "Ninject/3.2.0": {
+      "sha512": "CN7i6J/a1y85jVdeg0FkH5Obqo47SVQBU5929NPmlsi/AbE6ofJoStPHJco4H3aSI696obvoDmFxbZ+tfz7m6A==",
+      "type": "package",
+      "path": "ninject/3.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35/Ninject.dll",
+        "lib/net35/Ninject.xml",
+        "lib/net40/Ninject.dll",
+        "lib/net40/Ninject.xml",
+        "lib/net45-full/Ninject.dll",
+        "lib/net45-full/Ninject.xml",
+        "lib/sl2/Ninject.dll",
+        "lib/sl2/Ninject.xml",
+        "lib/sl3-wp/Ninject.dll",
+        "lib/sl3-wp/Ninject.xml",
+        "lib/sl3/Ninject.dll",
+        "lib/sl3/Ninject.xml",
+        "lib/sl4-windowsphone71/Ninject.dll",
+        "lib/sl4-windowsphone71/Ninject.xml",
+        "lib/sl4/Ninject.dll",
+        "lib/sl4/Ninject.xml",
+        "lib/sl5/Ninject.dll",
+        "lib/sl5/Ninject.xml",
+        "ninject.3.2.0.nupkg.sha512",
+        "ninject.nuspec"
+      ]
+    },
+    "Ninject.MVC3/3.2.1": {
+      "sha512": "/6rUOixiAPdBNhsl3KaOjaX1KMdizLsufIeO9k4R3kY0NIivchlLorCvb3Ks+BIvV6KZ85KPtKBBc6tHX0W7Kg==",
+      "type": "package",
+      "path": "ninject.mvc3/3.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40-full/Ninject.Web.Mvc.dll",
+        "lib/net40-full/Ninject.Web.Mvc.xml",
+        "lib/net45-full/Ninject.Web.Mvc.dll",
+        "lib/net45-full/Ninject.Web.Mvc.xml",
+        "ninject.mvc3.3.2.1.nupkg.sha512",
+        "ninject.mvc3.nuspec"
+      ]
+    },
+    "Ninject.Web.Common/3.2.0": {
+      "sha512": "0isoniPCLBWDzFo3f3DrTfo2p/hDxmTzY7sqkIpJuTfXwzDmpRJmfJbK2FqHCgPKmgbsQKPB1JSK0e1HN2FbHw==",
+      "type": "package",
+      "path": "ninject.web.common/3.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net35-full/Ninject.Web.Common.dll",
+        "lib/net35-full/Ninject.Web.Common.xml",
+        "lib/net40-full/Ninject.Web.Common.dll",
+        "lib/net40-full/Ninject.Web.Common.xml",
+        "lib/net45-full/Ninject.Web.Common.dll",
+        "lib/net45-full/Ninject.Web.Common.xml",
+        "ninject.web.common.3.2.0.nupkg.sha512",
+        "ninject.web.common.nuspec"
+      ]
+    },
+    "Ninject.Web.Common.WebHost/3.2.0": {
+      "sha512": "ridsl0COq/FwJt+7MEmp2AJ74ysopHpEb6hhEBuXg8dJCgfD2gd/hvXHPls3dDgYaVqoAfTn9JwCgzQ2t3z1EQ==",
+      "type": "package",
+      "path": "ninject.web.common.webhost/3.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/App_Start/NinjectWebCommon.cs.pp",
+        "ninject.web.common.webhost.3.2.0.nupkg.sha512",
+        "ninject.web.common.webhost.nuspec"
+      ]
+    },
+    "WebActivatorEx/2.0.0": {
+      "sha512": "B3ZbOEaGCqa7BLjZZw6wqprOJJMvP39h7Lr5ADkJOCPKHppAaCre34kR63/gfgpM4htzTfgm/pEw7r7qqqMgIA==",
+      "type": "package",
+      "path": "webactivatorex/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/WebActivatorEx.dll",
+        "webactivatorex.2.0.0.nupkg.sha512",
+        "webactivatorex.nuspec"
+      ]
+    },
+    "ElmaSecondTryBase/1.0.0": {
+      "type": "project",
+      "path": "../ElmaSecondTryBase/ElmaSecondTryBase.csproj",
+      "msbuildProject": "../ElmaSecondTryBase/ElmaSecondTryBase.csproj"
+    },
+    "ElmaSecondTryNHibernate/1.0.0": {
+      "type": "project",
+      "path": "../ElmaSecondTryNHibernate/ElmaSecondTryNHibernate.csproj",
+      "msbuildProject": "../ElmaSecondTryNHibernate/ElmaSecondTryNHibernate.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.7.2": [
+      "ElmaSecondTryBase >= 1.0.0",
+      "ElmaSecondTryNHibernate >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\user\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTry\\ElmaSecondTry.csproj",
+      "projectName": "ElmaSecondTry",
+      "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTry\\ElmaSecondTry.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTry\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net472"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net472": {
+          "projectReferences": {
+            "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {
+              "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj"
+            },
+            "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj": {
+              "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj"
+            }
+          }
+        }
+      }
+    },
+    "frameworks": {
+      "net472": {}
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ninject.MVC3 3.2.1 зависит от Ninject.Web.Common.WebHost (>= 3.0.0), но Ninject.Web.Common.WebHost 3.0.0 не найден. Использовано наилучшее приближенное соответствие Ninject.Web.Common.WebHost 3.2.0.",
+      "libraryId": "Ninject.Web.Common.WebHost",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.2",
+        ".NETFramework,Version=v4.7.2/win",
+        ".NETFramework,Version=v4.7.2/win-x64",
+        ".NETFramework,Version=v4.7.2/win-x86"
+      ]
+    }
+  ]
+}
