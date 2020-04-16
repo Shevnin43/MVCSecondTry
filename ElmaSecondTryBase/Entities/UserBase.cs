@@ -52,10 +52,10 @@ namespace ElmaSecondTryBase.Entities
         /// Список объявлений пользователя
         /// </summary>
         public virtual IEnumerable<AnnouncementBase> Announcements { get; set; } = new List<AnnouncementBase>();
-        
+
         /// <summary>
         /// Дата регистрации пользователя
         /// </summary>
-        public virtual DateTime RegisterDate { get; set; }
+        public virtual DateTime RegisterDate { get; set; } = DateTime.Now;
     }
 }

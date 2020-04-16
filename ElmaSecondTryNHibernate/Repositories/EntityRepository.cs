@@ -7,22 +7,25 @@ using System.Text;
 
 namespace ElmaSecondTryNHibernate.Repositories
 {
-    public class EntityRepository : IEntityRepository
+    public class EntityRepository : IEntityRepository 
     {
         private readonly ISession _session;
+        
         public EntityRepository(ISession session)
         {
             _session = session;
         }
-        
+
         public UserBase CreateUser(UserBase entity)
         {
-            using (ITransaction transaction = _session.BeginTransaction())
+            using (_session.BeginTransaction())
             {
                 _session.SaveOrUpdate(entity);
-                transaction.Commit();
+                _session.Transaction.Commit();
             }
-            return _session.QueryOver<UserBase>().Where(x => x.Id == entity.Id).SingleOrDefault();
+            var savedUser= _session.Get<UserBase>(entity.Id);
+            _session.Close();
+            return savedUser;
         }
 
         public bool DeleteUser(Guid id)

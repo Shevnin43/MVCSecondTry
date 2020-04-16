@@ -101,5 +101,3 @@ D:\Projects\ElmaSecondTry\ElmaSecondTry\bin\WebActivatorEx.dll
 D:\Projects\ElmaSecondTry\ElmaSecondTry\bin\ElmaSecondTryNHibernate.pdb
 D:\Projects\ElmaSecondTry\ElmaSecondTry\bin\AutoMapper.pdb
 D:\Projects\ElmaSecondTry\ElmaSecondTry\obj\Debug\ElmaSecondTry.csprojAssemblyReference.cache
-D:\Projects\ElmaSecondTry\ElmaSecondTry\bin\hibernate.cfg.xml
-D:\Projects\ElmaSecondTry\ElmaSecondTry\bin\NHibernateMappings\UserBase.hbm.xml

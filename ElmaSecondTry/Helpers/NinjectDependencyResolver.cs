@@ -6,6 +6,9 @@ using ElmaSecondTryBase.Repositories;
 using ElmaSecondTryNHibernate.Repositories;
 using ElmaSecondTryNHibernate;
 using NHibernate;
+using AutoMapper;
+using Ninject.Web.Common;
+using System.Web;
 
 namespace ElmaSecondTry.Helpers
 {
@@ -31,8 +34,12 @@ namespace ElmaSecondTry.Helpers
 
         private void AddBindings()
         {
+            var mapperConfiguration = Mappings.ConfigureMapping();
+            kernel.Bind<ISession>().ToProvider<HibernateHelper>();
+            kernel.Bind<IMapper>().ToConstructor(c => new Mapper(mapperConfiguration)).InSingletonScope();
+            kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+            kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             kernel.Bind<IEntityRepository>().To<EntityRepository>();
-            //kernel.Bind<ISession>().To<HibernateHelper>();
         }
     }
 }

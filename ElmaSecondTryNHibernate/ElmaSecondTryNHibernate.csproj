@@ -5,18 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="hibernate.cfg.xml" />
     <None Remove="UserDb.hbm.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="hibernate.cfg.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NHibernateMappings\UserBase.hbm.xml">
-      <CustomToolNamespace>ElmaSecondTryNHibernate</CustomToolNamespace>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
