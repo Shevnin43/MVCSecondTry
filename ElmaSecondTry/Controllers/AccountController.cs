@@ -39,12 +39,17 @@ namespace ElmaSecondTry.Controllers
         [HttpPost]
         public ActionResult Authorization(Authorization authorization)
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
-                var authUser = tempUsers.FirstOrDefault(x => x.Login == authorization.Login && x.Password == authorization.Password); //TOREDO
-                FormsAuthentication.SetAuthCookie(authUser.Login, true);
+                return RedirectToAction("Index", "Home"); //TOREDO
+            }
+            var authUser = tempUsers.FirstOrDefault(x => x.Login == authorization.Login && x.Password == authorization.Password); //TOREDO
+            if (authUser!=null)
+            {
+                FormsAuthentication.SetAuthCookie(authUser?.Login, true);
             }
             return RedirectToAction("Index", "Home"); //TOREDO
+
         }
 
         public ActionResult Registration()
@@ -59,9 +64,9 @@ namespace ElmaSecondTry.Controllers
             {
                 return RedirectToAction("Index", "Home"); //TOREDO
             }
-            _entityRepository.CreateUser(_mapper.Map<Registration, UserBase>(registration));
+            var savedUser = _entityRepository.CreateUser(_mapper.Map<Registration, UserBase>(registration));
             //tempUsers.Add(new TempUser { Id = Guid.NewGuid(), Login = registration.Login, Password = registration.Password, Role = registration.Role, RegisterDate = DateTime.Now }); //TOREDO
-            FormsAuthentication.SetAuthCookie(registration.Login, true);
+            FormsAuthentication.SetAuthCookie(savedUser.Login, true);
             return RedirectToAction("Index", "Home"); // TOREDO
         }
 
