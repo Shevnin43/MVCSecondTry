@@ -9,33 +9,11 @@ using Ninject.Activation;
 
 namespace ElmaSecondTryNHibernate
 {
-    public class HibernateHelper : Provider<ISession>
+    public class HibernateHelper : Provider<ISessionFactory>
     {
-
-        private static ISessionFactory _sessionFactory;
-
-        private static ISessionFactory SessionFactory
-        {
-            get
-            {
-                if (_sessionFactory == null)
-                {
-                    var cfg = new Configuration();
-                    cfg.Configure();
-                    cfg.AddAssembly(typeof(UserBase).Assembly);
-                    new SchemaExport(cfg).Execute(true, true, false);
-                    _sessionFactory = cfg.BuildSessionFactory();
-                }
-                return _sessionFactory;
-            }
-        }
         
-        protected override ISession CreateInstance(IContext context)
+        protected override ISessionFactory CreateInstance(IContext context)
         {
-            /*var cfg = new Configuration();
-            cfg.Configure();
-            cfg.AddAssembly(typeof(HibernateModule).Assembly);*/
-
             var mapper = new ModelMapper();
             mapper.AddMappings(typeof(HibernateModule).Assembly.ExportedTypes);
             var mappings = mapper.CompileMappingForAllExplicitlyAddedEntities();
@@ -49,8 +27,8 @@ namespace ElmaSecondTryNHibernate
 
 
             //new SchemaExport(cfg).Execute(true, true, false);
-            var sessionFactory = cfg.BuildSessionFactory();
-            return sessionFactory.OpenSession();
+            return cfg.BuildSessionFactory();
+            //return sessionFactory.OpenSession();
         }
     }
 }

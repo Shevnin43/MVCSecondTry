@@ -1,0 +1,63 @@
+﻿@model ElmaSecondTry.Models.User.ShowUser
+
+@{
+    ViewBag.Title = "ShowUser";
+}
+
+<h2>Информация о пользователе: @Model.Login</h2>
+<hr />
+<div>
+    @Html.ActionLink("Изменить логин и пароль", "EditAccount", "Account", new { id = Model.Id }, null)
+</div>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Login)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Login)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.About)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.About)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegisterDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegisterDate)
+        </dd>
+        <div>
+            @Html.ActionLink("Редактировать данные пользователя", "EditUser", "User", new { id = Model.Id }, null)
+        </div>
+    </dl>
+</div>
+

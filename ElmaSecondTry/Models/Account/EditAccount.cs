@@ -1,13 +1,15 @@
-﻿using ElmaSecondTryBase.Enums;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ElmaSecondTry.Models.Account
 {
-    /// <summary>
-    /// Модель регистрации пользователя
-    /// </summary>
-    public class Registration : AccountBase
+    public class EditAccount : AccountBase
     {
+        /// <summary>
+        /// Ай-ди пользователя
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Подтверждение пароля пользователем
         /// </summary>
@@ -16,6 +18,5 @@ namespace ElmaSecondTry.Models.Account
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
-
     }
 }

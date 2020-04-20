@@ -18,6 +18,7 @@ namespace ElmaSecondTryNHibernate.NHibernateMappings
             Id(x => x.Id, x =>
             {
                 x.Type(NHibernateUtil.Guid);
+                x.Generator(Generators.NativeGuid);
                 x.Column("Id");
             });
 

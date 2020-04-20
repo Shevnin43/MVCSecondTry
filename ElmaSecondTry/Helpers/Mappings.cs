@@ -17,9 +17,14 @@ namespace ElmaSecondTry.Helpers
             {
                 cfg.CreateMap<Registration, UserBase>();
                 cfg.CreateMap<Authorization, UserBase>();
-                cfg.CreateMap<BaseUser, UserBase>();
-                cfg.CreateMap<EditUser, UserBase>();
+                cfg.CreateMap<EditAccount, UserBase>();
+                cfg.CreateMap<UserBase, EditAccount>();
+
                 cfg.CreateMap<ShowUser, UserBase>();
+                cfg.CreateMap<EditUser, UserBase>();
+                cfg.CreateMap<FilterUser, UserBase>();
+                cfg.CreateMap<UserBase, ShowUser>();
+                cfg.CreateMap<UserBase, EditUser>();
 
             });
 

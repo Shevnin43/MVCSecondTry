@@ -7,6 +7,7 @@ namespace ElmaSecondTryBase.Entities
 {
     public class VacancyBase : AnnouncementBase
     {
-        public override AnnouncementType AnnType { get; } = AnnouncementType.Vacancy;
+        public override Guid Id { get; set; }
+        public string Second { get; set; }
     }
 }

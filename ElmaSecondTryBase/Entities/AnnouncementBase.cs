@@ -8,6 +8,7 @@ namespace ElmaSecondTryBase.Entities
 {
     public abstract class AnnouncementBase
     {
-        public abstract AnnouncementType AnnType { get; }
+        public virtual Guid Id { get; set; }
+        
     }
 }
