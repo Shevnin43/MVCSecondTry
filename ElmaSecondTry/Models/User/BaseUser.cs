@@ -13,36 +13,36 @@ namespace ElmaSecondTry.Models.User
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Наименование пользователя
+        /// Наименование
         /// </summary>
-        [Display(Name="Наименование пользователя")]
+        [Display(Name="Наименование")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Роль пользователя
+        /// Роль 
         /// </summary>
-        [Display(Name="Роль пользователя")]
+        [Display(Name="Роль")]
         [Required]
         public UserRoles Role { get; set; }
 
         /// <summary>
-        /// Описание пользователя
+        /// Описание 
         /// </summary>
-        [Display(Name= "Описание пользователя")]
+        [Display(Name= "Описание")]
         public string About { get; set; }
 
         /// <summary>
-        /// Контактный телефон пользователя
+        /// Телефон 
         /// </summary>
-        [Display(Name = "Контактный телефон")]
+        [Display(Name = "Телефон")]
         [RegularExpression(@"[\d+]{0,1}[0-9]{5,11}", ErrorMessage = "Некорректный номер")]
         [StringLength(12, MinimumLength = 6, ErrorMessage = "Номер должен содержать от 6 до 12 символов")]
         public virtual string Phone { get; set; }
 
         /// <summary>
-        /// Контактный Email пользователя
+        /// Email
         /// </summary>
-        [Display(Name = "Электронная почта")]
+        [Display(Name = "Эл. почта")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
         public virtual string Email { get; set; }
     }

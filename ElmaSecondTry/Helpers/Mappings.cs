@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ElmaSecondTry.Models.Account;
 using ElmaSecondTry.Models.User;
+using ElmaSecondTry.Models.Vacancy;
 using ElmaSecondTryBase.Entities;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace ElmaSecondTry.Helpers
                 cfg.CreateMap<UserBase, ShowUser>();
                 cfg.CreateMap<UserBase, EditUser>();
 
+                cfg.CreateMap<BaseVacancy, VacancyBase>();
+                cfg.CreateMap<ShowVacancy, VacancyBase>();
             });
 
             return config;

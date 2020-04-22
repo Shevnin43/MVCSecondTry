@@ -25,10 +25,8 @@ namespace ElmaSecondTryNHibernate
             });
             cfg.AddMapping(mappings);
 
-
-            //new SchemaExport(cfg).Execute(true, true, false);
+            //new SchemaExport(cfg).Execute (true, true, false);
             return cfg.BuildSessionFactory();
-            //return sessionFactory.OpenSession();
         }
     }
 }

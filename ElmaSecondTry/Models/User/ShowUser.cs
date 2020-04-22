@@ -7,7 +7,7 @@ namespace ElmaSecondTry.Models.User
     public class ShowUser : BaseUser
     {
         /// <summary>
-        /// Логин пользователя
+        /// Логин
         /// </summary>
         [Display(Name="Логин")]
         public string Login { get; set; }
@@ -15,7 +15,7 @@ namespace ElmaSecondTry.Models.User
         /// <summary>
         /// Дата регистрации пользователя
         /// </summary>
-        [Display(Name="Дата регистрации")]
+        [Display(Name="Дата рег.")]
         public DateTime RegisterDate { get; set; }
 
         /// <summary>

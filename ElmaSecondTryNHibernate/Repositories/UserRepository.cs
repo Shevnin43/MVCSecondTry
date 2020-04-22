@@ -25,26 +25,58 @@ namespace ElmaSecondTryNHibernate.Repositories
         /// <returns></returns>
         public UserBase CreateUser(UserBase entity)
         {
-            var session = _sessionFactory.OpenSession();
             if (entity==null)
             {
                 return null;
             }
+            var session = _sessionFactory.OpenSession();
             entity.RegisterDate = DateTime.Now;
             entity.Role =UserRoles.None;
-            using (session.BeginTransaction())
+            try
             {
-                session.SaveOrUpdate(entity);
-                session.Transaction.Commit();
+                using (session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(entity);
+                    session.Transaction.Commit();
+                    var savedUser = session.Get<UserBase>(entity.Id);
+                    session.Close();
+                    return savedUser;
+                }
             }
-            var savedUser = session.Get<UserBase>(entity.Id);
-            session.Close();
-            return savedUser;
+            catch
+            {
+                return null;
+            }
         }
 
+
+        /// <summary>
+        /// Удаление пользователя
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool DeleteUser(Guid id)
         {
-            throw new NotImplementedException();
+            if (id==null || id==Guid.Empty)
+            {
+                return false;
+            }
+            var savedUser = FindUser(id);
+            var session = _sessionFactory.OpenSession();
+            try
+            {
+                using (session.BeginTransaction())
+                {
+                    session.Delete(savedUser);
+                    session.Transaction.Commit();
+                    session.Close();
+                }
+                return FindUser(id) == null;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -54,10 +86,21 @@ namespace ElmaSecondTryNHibernate.Repositories
         /// <returns></returns>
         public UserBase FindUser(Guid id)
         {
-            var session = _sessionFactory.OpenSession();
-            var user = session.Get<UserBase>(id);
-            session.Close();
-            return user;
+            if (id == null || id == Guid.Empty)
+            {
+                return null;
+            }
+            try
+            {
+                var session = _sessionFactory.OpenSession();
+                var user = session.Get<UserBase>(id);
+                session.Close();
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -67,42 +110,86 @@ namespace ElmaSecondTryNHibernate.Repositories
         /// <returns></returns>
         public UserBase FindUser(string login)
         {
-            var session = _sessionFactory.OpenSession();
-            var user = session.QueryOver<UserBase>().Where(x => x.Login == login).SingleOrDefault();
-            session.Close();
-            return user;
+            if (string.IsNullOrWhiteSpace(login))
+            {
+                return null;
+            }
+            try
+            {
+                var session = _sessionFactory.OpenSession();
+                var user = session.QueryOver<UserBase>().Where(x => x.Login == login)?.SingleOrDefault();
+                session.Close();
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
+        /// <summary>
+        /// Фильтрация пользователей
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="period"></param>
+        /// <returns></returns>
         public IEnumerable<UserBase> FilterUsers(UserBase user, (DateTime Min, DateTime Max) period)
         {
-            var session = _sessionFactory.OpenSession();
-            var criteria = session.CreateCriteria(typeof(UserBase))
-                .Add(LikeOrNull("Name", user.Name))
-                .Add(LikeOrNull("Login", user.Login))
-                .Add(LikeOrNull("About", user.About))
-                .Add(LikeOrNull("Phone", user.Phone))
-                .Add(LikeOrNull("Email", user.Email))
-                ;/*.Add(Expression.Between("RegisterDate", period.Min, period.Max));*/
-            if (user.Role!=UserRoles.All)
+            if (user==null)
             {
-                criteria.Add(Restrictions.Eq("Role", (Int32)user.Role));
+                return new List<UserBase>();
             }
-            var result = criteria.List<UserBase>();
-            session.Close();
+            try
+            {
+                var session = _sessionFactory.OpenSession();
+                var criteria = session.CreateCriteria(typeof(UserBase))
+                    .Add(LikeOrNull("Name", user.Name))
+                    .Add(LikeOrNull("Login", user.Login))
+                    .Add(LikeOrNull("About", user.About))
+                    .Add(LikeOrNull("Phone", user.Phone))
+                    .Add(LikeOrNull("Email", user.Email));
+                /*.Add(Expression.Between("RegisterDate", period.Min, period.Max));*/
+                if (user.Role != UserRoles.All)
+                {
+                    criteria.Add(Restrictions.Eq("Role", (int)user.Role));
+                }
+                var result = criteria.List<UserBase>();
+                session.Close();
                 return result;
+            }
+            catch
+            {
+                return new List<UserBase>();
+            }
         }
 
+        /// <summary>
+        /// Обновление данных пользователя
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public UserBase UpdateUser(UserBase entity)
         {
-            var session = _sessionFactory.OpenSession();
-            using (session.BeginTransaction())
+            if (entity == null)
             {
-                session.Update(entity);
-                session.Transaction.Commit();
+                return null;
             }
-            var updatedUser = session.Get<UserBase>(entity.Id);
-            session.Close();
-            return updatedUser;
+            try
+            {
+                var session = _sessionFactory.OpenSession();
+                using (session.BeginTransaction())
+                {
+                    session.Update(entity);
+                    session.Transaction.Commit();
+                }
+                var updatedUser = session.Get<UserBase>(entity.Id);
+                session.Close();
+                return updatedUser;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>

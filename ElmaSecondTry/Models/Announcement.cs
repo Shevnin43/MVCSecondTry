@@ -1,4 +1,5 @@
-﻿using ElmaSecondTryBase.Enums;
+﻿using ElmaSecondTry.Models.User;
+using ElmaSecondTryBase.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,9 @@ namespace ElmaSecondTry.Models
 {
     public abstract class Announcement
     {
-        public abstract AnnouncementType AnnType { get; }
+        /// <summary>
+        /// Ай-ди объявления
+        /// </summary>
+        public Guid Id { get; set; }
     }
 }

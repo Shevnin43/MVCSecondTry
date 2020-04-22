@@ -35,8 +35,8 @@ namespace ElmaSecondTry.Helpers
         private void AddBindings()
         {
             var mapperConfiguration = Mappings.ConfigureMapping();
-            kernel.Bind<ISessionFactory>().ToProvider<HibernateHelper>();
             kernel.Bind<IMapper>().ToConstructor(c => new Mapper(mapperConfiguration)).InSingletonScope();
+            kernel.Bind<ISessionFactory>().ToProvider<HibernateHelper>();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             kernel.Bind<IUserRepository>().To<UserRepository>();

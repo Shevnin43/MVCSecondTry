@@ -218,6 +218,7 @@
     <Content Include="Views\User\EditUser.cshtml" />
     <Content Include="Views\Account\EditAccount.cshtml" />
     <Content Include="Views\User\FilterUser.cshtml" />
+    <Content Include="Views\User\ShowListUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

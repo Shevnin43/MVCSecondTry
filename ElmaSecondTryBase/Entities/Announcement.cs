@@ -1,14 +1,11 @@
-﻿using ElmaSecondTryBase.Enums;
-//using ElmaSecondTryBase.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ElmaSecondTryBase.Entities
 {
-    public class CandidateBase : Announcement
+    public abstract class Announcement
     {
-        /*
         /// <summary>
         /// Ай-ди объявления
         /// </summary>
@@ -29,18 +26,5 @@ namespace ElmaSecondTryBase.Entities
         /// Пользователь, вносивший последние изменения
         /// </summary>
         public virtual UserBase LastEditor { get; set; }
-        */
-        /// <summary>
-        /// Имя
-        /// </summary>
-        public virtual string FirstName { get; set; }
-        /// <summary>
-        /// Фамилия
-        /// </summary>
-        public virtual string LastName { get; set; }
-        /// <summary>
-        /// Отчество
-        /// </summary>
-        public virtual string Patronymic { get; set; }
     }
 }

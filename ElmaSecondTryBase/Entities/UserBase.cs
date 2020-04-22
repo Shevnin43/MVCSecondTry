@@ -51,7 +51,7 @@ namespace ElmaSecondTryBase.Entities
         /// <summary>
         /// Список объявлений пользователя
         /// </summary>
-        public virtual IEnumerable<AnnouncementBase> Announcements { get; set; } = new List<AnnouncementBase>();
+        public virtual IEnumerable<Announcement> Announcements { get; set; } = new List<Announcement>();
 
         /// <summary>
         /// Дата регистрации пользователя

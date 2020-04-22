@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using ElmaSecondTry.Helpers;
+using ElmaSecondTry.Models;
 using ElmaSecondTry.Models.User;
+using ElmaSecondTry.Models.Vacancy;
 using ElmaSecondTryBase.Entities;
 using ElmaSecondTryBase.Enums;
 using ElmaSecondTryBase.IRepositories;
@@ -50,15 +52,22 @@ namespace ElmaSecondTry.Controllers
         public ActionResult EditUser(Guid id)
         {
             var user = _mapper.Map<UserBase, EditUser>(_userRepository.FindUser(id));
-            if (user == null)
-            {
-                return View("~/Views/Home/Index.cshtml");
-            }
+            
+            return user==null ? View("~/Views/Home/Index.cshtml") : View(GetAvailableRoles(user));
+        }
+
+        /// <summary>
+        /// Получение доступных ролей для пользователя
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        private EditUser GetAvailableRoles (EditUser user)
+        {
             var availableRoles = User.IsInRole("Admin")
                 ? Enum.GetValues(typeof(UserRoles)).Cast<UserRoles>().Where(x => x.ToString() != "All")
                 : Enum.GetValues(typeof(UserRoles)).Cast<UserRoles>().Where(x => x.ToString() != "All" && x.ToString() != "Admin");
             user.AvailableRoles = availableRoles.Select(x => new SelectListItem { Value = x.ToString(), Text = x.ToString() }).ToList();
-            return View(user);
+            return user;
         }
 
         /// <summary>
@@ -82,6 +91,9 @@ namespace ElmaSecondTry.Controllers
             updatingUser.Login = userFromDb.Login;
             updatingUser.Password = userFromDb.Password;
             updatingUser.RegisterDate = userFromDb.RegisterDate;
+            
+            //updatingUser.Announcements.Append(new VacancyBase {CreationDate=DateTime.Now, Name="NewVacancy",Creator=updatingUser});
+
             var savedUser = _userRepository.UpdateUser(updatingUser);
             return savedUser != null ? RedirectToAction("ShowUser","User", new { savedUser.Login }) : RedirectToAction("Index", "Home");         //TOREDO
         }
@@ -97,20 +109,20 @@ namespace ElmaSecondTry.Controllers
         }
 
         /// <summary>
-        /// Фильтрация пользователей
+        /// Отображение отфильтрованных пользователей (через Ajax форму)
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult FilterUser(FilterUser filterUser)
+        public ActionResult ShowListUsers(FilterUser filterUser)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", "Home"); //TOREDO
             }
 
-            var nhibFilterUser = _mapper.Map<FilterUser, UserBase>(filterUser);
-            var filteredUsers = _userRepository.FilterUsers(nhibFilterUser, (filterUser.Registered.Min, filterUser.Registered.Max));
-            return RedirectToAction("ShowListUsers", "User", new { filteredUsers });
+            var dbUsers = _userRepository.FilterUsers(_mapper.Map<FilterUser, UserBase>(filterUser), (filterUser.Registered.Min, filterUser.Registered.Max));
+            var showUsers = dbUsers.Select(x => _mapper.Map<UserBase, ShowUser>(x));
+            return PartialView(showUsers);
         }
     }
 }

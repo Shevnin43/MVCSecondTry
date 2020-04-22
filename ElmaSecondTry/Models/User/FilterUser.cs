@@ -9,7 +9,7 @@ namespace ElmaSecondTry.Models.User
     public class FilterUser : BaseUser
     {
         /// <summary>
-        /// Логин пользователя
+        /// Логин 
         /// </summary>
         [Display(Name = "Логин")]
         public string Login { get; set; }

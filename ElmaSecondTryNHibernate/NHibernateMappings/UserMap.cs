@@ -62,6 +62,21 @@ namespace ElmaSecondTryNHibernate.NHibernateMappings
                 x.Type(NHibernateUtil.DateTime);
             });
 
+            Set(property => property.Announcements,
+                collectionMapping =>
+                {
+                    collectionMapping.Key(keyMapping =>
+                    {
+                        keyMapping.Column("CreatorId");
+                    });
+                    collectionMapping.Cascade(Cascade.All);
+                },
+                mapping =>
+                {
+                    mapping.OneToMany();
+                }
+            );
+
             Table(nameof(UserBase));
         }
     }
