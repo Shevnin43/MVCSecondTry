@@ -2,40 +2,52 @@
 using ElmaSecondTry.Models.Account;
 using ElmaSecondTry.Models.User;
 using ElmaSecondTryBase.Entities;
-using ElmaSecondTryBase.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using ElmaSecondTry.WebEnums;
 using AutoMapper;
+using ElmaSecondTryBase.IRepositories;
 
 namespace ElmaSecondTry.Controllers
 {
+    /// <summary>
+    /// Контроллер работы с аккаунтом
+    /// </summary>
     public class AccountController : Controller
     {
-        private readonly IEntityRepository _entityRepository;
+        /// <summary>
+        /// Поля данных DependencyInjection
+        /// </summary>
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         
-        public AccountController(IEntityRepository entityRepository, IMapper mapper)
+        /// <summary>
+        /// Комтруктор контроллера
+        /// </summary>
+        /// <param name="userRepository"></param>
+        /// <param name="mapper"></param>
+        public AccountController(IUserRepository userRepository, IMapper mapper)
         {
-            _entityRepository = entityRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
-        private static readonly List<TempUser> tempUsers = new List<TempUser>
-        { 
-            new TempUser {Login="Serg", Password="111", Id=Guid.NewGuid(), RegisterDate=DateTime.Now, Name="Сергей", Role=WebUserRoles.Jobseeker, About="AboutSerg", Email="SergPodlec@mail.ru", Phone="+79091319724"},
-            new TempUser {Login="Lena", Password="222", Id=Guid.NewGuid(), RegisterDate=DateTime.Now, Name="Лена", Role=WebUserRoles.Employee, About="AboutElena", Email="ElenaShevnina@mail.ru", Phone="+79091398584"},
-            new TempUser {Login="Ksyu", Password="333", Id=Guid.NewGuid(), RegisterDate=DateTime.Now, Name="Ксения", Role=WebUserRoles.Admin, About="AboutKsyu", Email="Kseniya@mail.ru", Phone="+79090000000"},
-        };
-
+        /// <summary>
+        /// Метод отображения формы авторизации пользователя
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Authorization()
         {
             return View();
         }
 
+        /// <summary>
+        /// Авторизация существующего пользователя
+        /// </summary>
+        /// <param name="authorization"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Authorization(Authorization authorization)
         {
@@ -43,20 +55,29 @@ namespace ElmaSecondTry.Controllers
             {
                 return RedirectToAction("Index", "Home"); //TOREDO
             }
-            var authUser = tempUsers.FirstOrDefault(x => x.Login == authorization.Login && x.Password == authorization.Password); //TOREDO
-            if (authUser!=null)
+            var authUser = _userRepository.FindUser(authorization.Login);
+            if (authUser!=null && authUser.Password==authorization.Password)
             {
-                FormsAuthentication.SetAuthCookie(authUser?.Login, true);
+                FormsAuthentication.SetAuthCookie(authUser.Login, true);
+                return RedirectToAction("ShowUser", "User", new { authUser.Login });
             }
             return RedirectToAction("Index", "Home"); //TOREDO
-
         }
 
+        /// <summary>
+        /// Метод отображения формы регистрации нового пользователя
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Registration()
         {
             return View();
         }
 
+        /// <summary>
+        /// Регистрация нового пользователя
+        /// </summary>
+        /// <param name="registration"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Registration(Registration registration)
         {
@@ -64,17 +85,61 @@ namespace ElmaSecondTry.Controllers
             {
                 return RedirectToAction("Index", "Home"); //TOREDO
             }
-            var savedUser = _entityRepository.CreateUser(_mapper.Map<Registration, UserBase>(registration));
-            //tempUsers.Add(new TempUser { Id = Guid.NewGuid(), Login = registration.Login, Password = registration.Password, Role = registration.Role, RegisterDate = DateTime.Now }); //TOREDO
-            FormsAuthentication.SetAuthCookie(savedUser.Login, true);
-            return RedirectToAction("Index", "Home"); // TOREDO
+            var savedUser = _userRepository.CreateUser(_mapper.Map<Registration, UserBase>(registration));
+            if (savedUser != null )
+            {
+                FormsAuthentication.SetAuthCookie(savedUser.Login, true);
+                return RedirectToAction("ShowUser", "User", new { savedUser.Login });
+            }
+            return RedirectToAction("Index", "Home"); //TOREDO
         }
 
+        /// <summary>
+        /// Деавторизация пользователя
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Authorization", "Account");
+        }
+
+        /// <summary>
+        /// Отображение формы редактирования логин а и пароля
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize]
+        public ActionResult EditAccount(Guid id)
+        {
+            var userFromDb = _userRepository.FindUser(id);
+            return View(_mapper.Map< UserBase, EditAccount>(userFromDb));
+        }
+
+        /// <summary>
+        /// Редактирование логина и пароля
+        /// </summary>
+        /// <param name="editAccount"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditAccount(EditAccount editAccount)
+        {
+            if(!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home"); //TOREDO
+            }
+            var userFromDb = _userRepository.FindUser(editAccount.Id);
+            if(userFromDb==null)
+            {
+                return RedirectToAction("Index", "Home"); //TOREDO
+            }
+            userFromDb.Login = editAccount.Login;
+            userFromDb.Password = editAccount.Password;
+            var savedUser = _userRepository.UpdateUser(userFromDb);
+
+            return savedUser != null ? RedirectToAction("ShowUser", "User", new { savedUser.Login }) : RedirectToAction("Index", "Home");         //TOREDO
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using ElmaSecondTry.WebEnums;
+﻿using ElmaSecondTryBase.Entities;
+using ElmaSecondTryBase.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ElmaSecondTry.Models.User
@@ -6,32 +8,42 @@ namespace ElmaSecondTry.Models.User
     public abstract class BaseUser
     {
         /// <summary>
-        /// Наименование пользователя
+        /// Ай-ди пользователя
         /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        [Display(Name="Наименование")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Роль пользователя
+        /// Роль 
         /// </summary>
+        [Display(Name="Роль")]
         [Required]
-        public WebUserRoles Role { get; set; }
+        public UserRoles Role { get; set; }
 
         /// <summary>
-        /// Описание пользователя
+        /// Описание 
         /// </summary>
+        [Display(Name= "Описание")]
         public string About { get; set; }
 
         /// <summary>
-        /// Контактный телефон пользователя
+        /// Телефон 
         /// </summary>
+        [Display(Name = "Телефон")]
         [RegularExpression(@"[\d+]{0,1}[0-9]{5,11}", ErrorMessage = "Некорректный номер")]
         [StringLength(12, MinimumLength = 6, ErrorMessage = "Номер должен содержать от 6 до 12 символов")]
-        public string Phone { get; set; }
+        public virtual string Phone { get; set; }
 
         /// <summary>
-        /// Контактный Email пользователя
+        /// Email
         /// </summary>
+        [Display(Name = "Эл. почта")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
-        public string Email { get; set; }
+        public virtual string Email { get; set; }
     }
 }

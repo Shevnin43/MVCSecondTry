@@ -3,9 +3,11 @@ namespace ElmaSecondTryBase.Enums
 {
     public enum UserRoles
     {
-        Admin,
-        Employee,
-        Jobseeker,
-        HR
+        Admin = 0 ,
+        Employee = 1,
+        Jobseeker = 2,
+        HR = 3,
+        None = 4,
+        All= 5
     }
 }

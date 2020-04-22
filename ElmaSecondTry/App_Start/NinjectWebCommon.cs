@@ -3,19 +3,9 @@
 
 namespace ElmaSecondTry.App_Start
 {
-    using System;
-    using System.Web;
     using System.Web.Mvc;
-    using AutoMapper;
     using ElmaSecondTry.Helpers;
-    using ElmaSecondTry.Models.Account;
-    using ElmaSecondTry.Models.User;
-    using ElmaSecondTryBase.Entities;
-    using ElmaSecondTryBase.Repositories;
-    using ElmaSecondTryNHibernate;
-    using ElmaSecondTryNHibernate.Repositories;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-    using NHibernate;
     using Ninject;
     using Ninject.Web.Common;
 
@@ -23,6 +13,8 @@ namespace ElmaSecondTry.App_Start
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
+        public static IKernel Kernel { get; set; }
+ 
         /// <summary>
         /// Starts the application
         /// </summary>
@@ -51,6 +43,7 @@ namespace ElmaSecondTry.App_Start
             try
             {
                 RegisterServices(kernel);
+                Kernel = kernel;
                 return kernel;
             }
             catch

@@ -18,6 +18,7 @@ namespace ElmaSecondTryNHibernate.NHibernateMappings
             Id(x => x.Id, x =>
             {
                 x.Type(NHibernateUtil.Guid);
+                x.Generator(Generators.NativeGuid);
                 x.Column("Id");
             });
 
@@ -60,6 +61,21 @@ namespace ElmaSecondTryNHibernate.NHibernateMappings
             {
                 x.Type(NHibernateUtil.DateTime);
             });
+
+            Set(property => property.Announcements,
+                collectionMapping =>
+                {
+                    collectionMapping.Key(keyMapping =>
+                    {
+                        keyMapping.Column("CreatorId");
+                    });
+                    collectionMapping.Cascade(Cascade.All);
+                },
+                mapping =>
+                {
+                    mapping.OneToMany();
+                }
+            );
 
             Table(nameof(UserBase));
         }

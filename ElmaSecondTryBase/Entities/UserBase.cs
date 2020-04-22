@@ -36,7 +36,7 @@ namespace ElmaSecondTryBase.Entities
         /// <summary>
         /// Ай-ди пользователя
         /// </summary>
-        public virtual Guid Id { get; set; } = Guid.NewGuid();
+        public virtual Guid Id { get; set; } 
 
         /// <summary>
         /// Логин пользователя
@@ -51,11 +51,11 @@ namespace ElmaSecondTryBase.Entities
         /// <summary>
         /// Список объявлений пользователя
         /// </summary>
-        public virtual IEnumerable<AnnouncementBase> Announcements { get; set; } = new List<AnnouncementBase>();
+        public virtual IEnumerable<Announcement> Announcements { get; set; } = new List<Announcement>();
 
         /// <summary>
         /// Дата регистрации пользователя
         /// </summary>
-        public virtual DateTime RegisterDate { get; set; } = DateTime.Now;
+        public virtual DateTime RegisterDate { get; set; }
     }
 }

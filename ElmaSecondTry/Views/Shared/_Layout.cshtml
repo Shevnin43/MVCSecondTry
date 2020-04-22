@@ -18,22 +18,32 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin.ToString()))
                     {
-                        <li>@Html.ActionLink("Пользователи", "AdminSearch", "Admin")</li>
-                        <li>@Html.ActionLink("Резюме", "EmployeeSearch", "Employee")</li>
-                        <li>@Html.ActionLink("Вакансии", "JobseekerSearch", "Jobseeker")</li>
+                        <li>@Html.ActionLink("Пользователи", "FilterUser", "User")</li>
+                        <li>@Html.ActionLink("Кандидаты", "CandidatesFilter", "Candidate")</li>
+                        <li>@Html.ActionLink("Вакансии", "VacancyFilter", "Vacancy")</li>
                     }
-                    else
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Employee.ToString()))
                     {
-                        <li>@Html.ActionLink("Поиск", "UserSearch", "Home")</li>
+                        <li>@Html.ActionLink("Кандидаты", "CandidatesFilter", "Candidate")</li>
                     }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Jobseeker.ToString()))
+                    {
+                        <li>@Html.ActionLink("Вакансии", "VacancyFilter", "Vacancy")</li>
+                    }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.HR.ToString()))
+                    {
+                        <li>@Html.ActionLink("Кандидаты", "CandidatesFilter", "Candidate")</li>
+                        <li>@Html.ActionLink("Вакансии", "VacancyFilter", "Vacancy")</li>
+                    }
+
                     <li>@Html.ActionLink("О программе", "About", "Home")</li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li> <a href="@Url.Action("Userdata", "Home", new {id = Guid.Empty })"><strong>@User.Identity.Name</strong></a> </li>
+                        <li> <a href="@Url.Action("ShowUser", "User", new {login = User.Identity.Name })"><strong>@User.Identity.Name</strong></a> </li>
                         <li> <a href="@Url.Action("LogOut", "Account")">Выход</a> </li>
                     </ul>
                 }
