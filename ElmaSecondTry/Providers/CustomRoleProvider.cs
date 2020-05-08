@@ -4,6 +4,7 @@ using ElmaSecondTryBase.Enums;
 using ElmaSecondTryBase.IRepositories;
 using Ninject;
 using System;
+using System.Linq;
 using System.Security.Principal;
 using System.Web.Security;
 
@@ -16,14 +17,14 @@ namespace ElmaSecondTry.Providers
         public override bool IsUserInRole(string login, string roleName)
         {
             var userRepository = NinjectWebCommon.Kernel.Get<IUserRepository>();
-            var user = userRepository.FindUser(login);
+            var user = userRepository.FindUser(login)?.Entity.First() as UserBase;
             return user != null && user.Role.ToString() == roleName;
         }
 
         public override string[] GetRolesForUser(string login)
         {
             var userRepository = NinjectWebCommon.Kernel.Get<IUserRepository>();
-            var user = userRepository.FindUser(login);
+            var user = userRepository.FindUser(login)?.Entity?.First() as UserBase;
             return user != null ? new string[] { user.Role.ToString() } : new string[0];
         }
 

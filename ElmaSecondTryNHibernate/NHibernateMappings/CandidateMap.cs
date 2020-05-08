@@ -8,56 +8,29 @@ using System.Text;
 
 namespace ElmaSecondTryNHibernate.NHibernateMappings
 {
-    public class CandidateMap : ClassMapping<CandidateBase>
+    /// <summary>
+    /// Маппинг модели CandidateBase на таблицу CandidateBase
+    /// </summary>
+    public class CandidateMap : JoinedSubclassMapping<CandidateBase>
     {
         /// <summary>
-        /// Инициализировать экземпляр <see cref="CandidateMap"/>
+        /// Конструктор маппинга CandidateBase
         /// </summary>
         public CandidateMap()
         {
-            /*
-            Id(x => x.Id, x =>
-            {
-                x.Type(NHibernateUtil.Guid);
-                x.Generator(Generators.NativeGuid);
-                x.Column("Id");
-            });
-
-            Property(b => b.CreationDate, x =>
-            {
-                x.Type(NHibernateUtil.DateTime);
-            });
-
-            Property(b => b.LastEdited, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            ManyToOne(property => property.Creator, mapping =>
-            {
-                mapping.Column("CandidateId");
-                mapping.Cascade(Cascade.All);
-            });
-            */
-            Property(b => b.LastName, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.FirstName, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.Patronymic, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            // LastEditor
-
             Table(nameof(CandidateBase));
-
+            Property(b => b.LastName);
+            Property(b => b.FirstName);
+            Property(b => b.Patronymic);
+            Property(b => b.About);
+            Property(b => b.BirthDay);
+            Property(b => b.Education);
+            Property(b => b.Photo,
+                c => {
+                    c.Length(2147483647);
+                });
+            Property(b => b.Experience);
+            Property(b => b.Profession);
         }
     }
 }

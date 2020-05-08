@@ -5,11 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     @Scripts.Render("~/scripts/jquery-3.4.1.min.js")
-
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Helpers/ProjectScript.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+
 
 </head>
 <body>
@@ -21,30 +23,31 @@
                     @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin.ToString()))
                     {
                         <li>@Html.ActionLink("Пользователи", "FilterUser", "User")</li>
-                        <li>@Html.ActionLink("Кандидаты", "CandidatesFilter", "Candidate")</li>
-                        <li>@Html.ActionLink("Вакансии", "VacancyFilter", "Vacancy")</li>
                     }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Employee.ToString()))
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole(UserRoles.All.ToString()) && !User.IsInRole(UserRoles.None.ToString()))
                     {
-                        <li>@Html.ActionLink("Кандидаты", "CandidatesFilter", "Candidate")</li>
+                        <li>@Html.ActionLink("Объявления", "AnnouncementsSelect", "Announcement")</li>
                     }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Jobseeker.ToString()))
-                    {
-                        <li>@Html.ActionLink("Вакансии", "VacancyFilter", "Vacancy")</li>
-                    }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.HR.ToString()))
-                    {
-                        <li>@Html.ActionLink("Кандидаты", "CandidatesFilter", "Candidate")</li>
-                        <li>@Html.ActionLink("Вакансии", "VacancyFilter", "Vacancy")</li>
-                    }
-
                     <li>@Html.ActionLink("О программе", "About", "Home")</li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li> <a href="@Url.Action("ShowUser", "User", new {login = User.Identity.Name })"><strong>@User.Identity.Name</strong></a> </li>
-                        <li> <a href="@Url.Action("LogOut", "Account")">Выход</a> </li>
+                        <li>
+                            <a href="@Url.Action("ShowUser", "User", new {login = User.Identity.Name })">
+                                <strong>@User.Identity.Name</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("EditAccount", "Account", new { login = User.Identity.Name})">
+                                <img src="~/Images/black-strong/Account_key.png" width="25" title="Сменить логин/пароль для @User.Identity.Name" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("LogOut", "Account")' onclick="return confirm('Вы уверены что желаете покинуть учетную запись @User.Identity.Name ?')">
+                                <img src="~/Images/black-strong/Exit.png" width="25" title="Выход из @User.Identity.Name" />
+                            </a>
+                        </li>
                     </ul>
                 }
                 else
@@ -58,17 +61,29 @@
     </div>
 
 
-
     <div class="container body-content">
         @RenderBody()
+
+        <div id="modUser" class="modal fade in">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div id="dialogUser"></div>
+                </div>
+            </div>
+        </div>
+        @if (TempData.Count > 0)
+        {
+            <script>ShowMessage('/Home/ClientMessage?status=@TempData["status"]&message=@TempData["message"]');</script>
+        }
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Web aplication by Shevnin </p>
+
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
 </body>
 </html>

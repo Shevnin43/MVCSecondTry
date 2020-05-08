@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using ElmaSecondTry.Models.Account;
-using ElmaSecondTry.Models.User;
-using ElmaSecondTry.Models.Vacancy;
+using ElmaSecondTry.Models.AccountModel;
+using ElmaSecondTry.Models;
+using ElmaSecondTry.Models.CandidateModel;
+using ElmaSecondTry.Models.UserModel;
+using ElmaSecondTry.Models.VacancyModel;
 using ElmaSecondTryBase.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ElmaSecondTry.Helpers
 {
@@ -18,17 +16,27 @@ namespace ElmaSecondTry.Helpers
             {
                 cfg.CreateMap<Registration, UserBase>();
                 cfg.CreateMap<Authorization, UserBase>();
-                cfg.CreateMap<EditAccount, UserBase>();
-                cfg.CreateMap<UserBase, EditAccount>();
+                cfg.CreateMap<EditAccount, UserBase>().ReverseMap();
 
-                cfg.CreateMap<ShowUser, UserBase>();
-                cfg.CreateMap<EditUser, UserBase>();
+                cfg.CreateMap<IAnnouncement, MyAnnouncement>()
+                .IncludeAllDerived();
+
+                //cfg.CreateMap<IAnnouncement, MyCandidate>();
+                //cfg.CreateMap<IAnnouncement, MyVacancy>();
+
+                cfg.CreateMap<ShowUser, UserBase>().ReverseMap();
+                cfg.CreateMap<EditUser, UserBase>().ReverseMap();
                 cfg.CreateMap<FilterUser, UserBase>();
-                cfg.CreateMap<UserBase, ShowUser>();
-                cfg.CreateMap<UserBase, EditUser>();
 
-                cfg.CreateMap<BaseVacancy, VacancyBase>();
-                cfg.CreateMap<ShowVacancy, VacancyBase>();
+                cfg.CreateMap<MyVacancy, VacancyBase>();
+                cfg.CreateMap<VacancyBase, MyVacancy>()
+                .ForMember(x => x.OwnerLogin, y => y.MapFrom(z => z.Creator.Login))
+                .ForMember(x => x.EditorLogin, y => y.MapFrom(z => z.LastEditor.Login));
+
+                cfg.CreateMap<MyCandidate, CandidateBase>();
+                cfg.CreateMap<CandidateBase, MyCandidate>()
+                .ForMember(x => x.OwnerLogin, y => y.MapFrom(z => z.Creator.Login))
+                .ForMember(x => x.EditorLogin, y => y.MapFrom(z => z.LastEditor.Login));
             });
 
             return config;

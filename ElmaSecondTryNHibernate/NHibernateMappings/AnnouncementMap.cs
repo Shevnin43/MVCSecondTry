@@ -8,32 +8,46 @@ using System.Text;
 
 namespace ElmaSecondTryNHibernate.NHibernateMappings
 {
-    public class AnnouncementMap : ClassMapping<Announcement>
+    public class AnnouncementMap : ClassMapping<IAnnouncement>
     {
         public AnnouncementMap()
         {
-            Id(x => x.Id, x =>
-            {
-                x.Type(NHibernateUtil.Guid);
-                x.Generator(Generators.NativeGuid);
-                x.Column("Id");
-            });
-
-            Property(b => b.CreationDate, x =>
-            {
-                x.Type(NHibernateUtil.DateTime);
-            });
-
-            Property(b => b.LastEdited, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            ManyToOne(property => property.Creator, mapping =>
-            {
-                mapping.Column("CandidateId");
-                mapping.Cascade(Cascade.All);
-            });
+            Id(x => x.Id);
+            Property(b => b.CreationDate, 
+                c => {
+                    c.Update(false);
+                    c.NotNullable(true);
+                });
+            Property(b => b.LastEdited,
+                c => {
+                    c.NotNullable(true);
+                });
+            ManyToOne(x => x.Creator,
+                c => {
+                    c.Cascade(Cascade.None);
+                    c.Column("AnnouncementId");
+                    c.Lazy(LazyRelation.NoLazy);
+                    c.Update(false);
+                    c.NotNullable(true);
+                });
+            ManyToOne(x => x.LastEditor,
+                c => {
+                    c.Column("LastEditorId");
+                    c.Lazy(LazyRelation.NoLazy);
+                    c.NotNullable(true);
+                });
+            Property(b => b.IsBlocked,
+                c => {
+                    c.NotNullable(true);
+                });
+            Property(b => b.Type, 
+                c => {
+                    c.Update(false);
+                    c.NotNullable(true);
+                });
+            Table(nameof(IAnnouncement));
+            DynamicUpdate(true);
+            DynamicInsert(true);
         }
     }
 }

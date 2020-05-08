@@ -10,28 +10,36 @@ using System.Text;
 
 namespace ElmaSecondTryNHibernate.Repositories
 {
+    /// <summary>
+    /// Класс репозитория для работы сущности UserBase с базой данных
+    /// </summary>
     public class UserRepository : IUserRepository
     {
         private readonly ISessionFactory _sessionFactory;
 
+        /// <summary>
+        /// Конструктор с получением SessionFactory для работы с БД
+        /// </summary>
+        /// <param name="sessionFactory"></param>
         public UserRepository(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
+
         /// <summary>
         /// Создание нового пользователя
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public UserBase CreateUser(UserBase entity)
+        public RepositoryResult CreateUser(UserBase entity)
         {
             if (entity==null)
             {
-                return null;
+                return new RepositoryResult {Status = ActionStatus.Error, Message = $"К сожалению, регистрируемый пользователь пуст.", Entity = null};
             }
-            var session = _sessionFactory.OpenSession();
             entity.RegisterDate = DateTime.Now;
             entity.Role =UserRoles.None;
+            var session = _sessionFactory.OpenSession();
             try
             {
                 using (session.BeginTransaction())
@@ -40,90 +48,68 @@ namespace ElmaSecondTryNHibernate.Repositories
                     session.Transaction.Commit();
                     var savedUser = session.Get<UserBase>(entity.Id);
                     session.Close();
-                    return savedUser;
+                    return savedUser == null ? new RepositoryResult { Status = ActionStatus.Error, Message = $"Пользователя ({entity.Login}) зарегистрировать не удалось.", Entity = null } : new RepositoryResult { Status = ActionStatus.Success, Message = $"Пользователь {savedUser.Login} успешно зарегистрирован {savedUser.RegisterDate}.", Entity = new UserBase[] {savedUser} };
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                return new RepositoryResult { Status = ActionStatus.Fatal, Message = $"При регистрации пользователя ({entity.Login}) произошла непредвиденная ошибка репозитория. Исключение:{ex.Message}", Entity = null };
             }
         }
 
-
         /// <summary>
-        /// Удаление пользователя
+        /// Удаление пользователя из базы данных
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="login"></param>
         /// <returns></returns>
-        public bool DeleteUser(Guid id)
+        public RepositoryResult DeleteUser(UserBase entity)
         {
-            if (id==null || id==Guid.Empty)
+            if (entity.NotKill)
             {
-                return false;
+                return new RepositoryResult { Status = ActionStatus.Warning, Message = $"Не могу удалить пользователя ({entity.Login}). Данный пользователь помечен как неудаляемый.", Entity = null };
             }
-            var savedUser = FindUser(id);
             var session = _sessionFactory.OpenSession();
             try
             {
                 using (session.BeginTransaction())
                 {
-                    session.Delete(savedUser);
+                    session.Delete(entity);
                     session.Transaction.Commit();
                     session.Close();
                 }
-                return FindUser(id) == null;
+                return FindUser(entity.Login).Status != ActionStatus.Success ? new RepositoryResult { Status = ActionStatus.Success, Message = $"Пользователь ({entity.Login}) успешно удален.", Entity = null } : new RepositoryResult { Status = ActionStatus.Warning, Message = $"Не удалось удалить пользователя {entity.Login}.", Entity = null }; ; 
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                return new RepositoryResult { Status = ActionStatus.Fatal, Message = $"При удалении пользователя ({entity.Login}) произошла непредвиденная ошибка репозитория. Исключение: {ex.Message}", Entity = null };
             }
         }
 
         /// <summary>
-        /// Поиск пользователя по Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public UserBase FindUser(Guid id)
-        {
-            if (id == null || id == Guid.Empty)
-            {
-                return null;
-            }
-            try
-            {
-                var session = _sessionFactory.OpenSession();
-                var user = session.Get<UserBase>(id);
-                session.Close();
-                return user;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Поиск пользователя по Логину
+        /// Извлечение пользователя из базы данных по Логину (по умолчанию - без объявлений со статусом "Заблокированные")
         /// </summary>
         /// <param name="login"></param>
         /// <returns></returns>
-        public UserBase FindUser(string login)
+        public RepositoryResult FindUser(string login, bool withBlockedAnnouncements = false)
         {
             if (string.IsNullOrWhiteSpace(login))
             {
-                return null;
+                return new RepositoryResult { Status = ActionStatus.Error, Message = $"Не указан логин искомого пользователя.", Entity = null };
             }
             try
             {
                 var session = _sessionFactory.OpenSession();
                 var user = session.QueryOver<UserBase>().Where(x => x.Login == login)?.SingleOrDefault();
                 session.Close();
-                return user;
+                if (user!=null && !withBlockedAnnouncements)
+                {
+                    user.Announcements = user.Announcements.Where(x => !x.IsBlocked).ToList();
+                }
+                return user==null ? new RepositoryResult { Status = ActionStatus.Warning, Message = $"Искомый пользователь ({login}) не найден.", Entity = null } : new RepositoryResult { Status = ActionStatus.Success, Message = $"Пользователь {login} успешно найден.", Entity = new UserBase[]{user} }; ;
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                return new RepositoryResult { Status = ActionStatus.Fatal, Message = $"При извлечении пользователя ({login}) произошла непредвиденная ошибка репозитория. Исключение: {ex.Message}", Entity = null };
             }
         }
 
@@ -133,11 +119,11 @@ namespace ElmaSecondTryNHibernate.Repositories
         /// <param name="user"></param>
         /// <param name="period"></param>
         /// <returns></returns>
-        public IEnumerable<UserBase> FilterUsers(UserBase user, (DateTime Min, DateTime Max) period)
+        public RepositoryResult FilterUsers(UserBase user, Dictionary<string,DateTime> period)
         {
-            if (user==null)
+            if (user==null || period ==null)
             {
-                return new List<UserBase>();
+                return new RepositoryResult { Status = ActionStatus.Error, Message = $"Не указаны параметры выборки пользователей.", Entity = null };
             }
             try
             {
@@ -147,19 +133,19 @@ namespace ElmaSecondTryNHibernate.Repositories
                     .Add(LikeOrNull("Login", user.Login))
                     .Add(LikeOrNull("About", user.About))
                     .Add(LikeOrNull("Phone", user.Phone))
-                    .Add(LikeOrNull("Email", user.Email));
-                /*.Add(Expression.Between("RegisterDate", period.Min, period.Max));*/
+                    .Add(LikeOrNull("Email", user.Email))
+                .Add(Restrictions.Between("RegisterDate", period["min"], period["max"]));
                 if (user.Role != UserRoles.All)
                 {
-                    criteria.Add(Restrictions.Eq("Role", (int)user.Role));
+                    criteria.Add(Restrictions.Like("Role", user.Role));
                 }
                 var result = criteria.List<UserBase>();
                 session.Close();
-                return result;
+                return result.Count==0 ? new RepositoryResult { Status = ActionStatus.Warning, Message = $"Искомые пользователи не найдены.", Entity = null } : new RepositoryResult { Status = ActionStatus.Success, Message = $"По запросу найдено {result.Count} пользователей.", Entity = result.ToArray() }; ;
             }
-            catch
+            catch (Exception ex)
             {
-                return new List<UserBase>();
+                return new RepositoryResult { Status = ActionStatus.Fatal, Message = $"При извлечении выборке пользователей произошла непредвиденная ошибка репозитория. Исключение: {ex.Message}", Entity = null };
             }
         }
 
@@ -168,11 +154,11 @@ namespace ElmaSecondTryNHibernate.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public UserBase UpdateUser(UserBase entity)
+        public RepositoryResult UpdateUser(UserBase entity)
         {
             if (entity == null)
             {
-                return null;
+                return new RepositoryResult { Status = ActionStatus.Error, Message = $"Не указан пользователь, данные которого необходимо обновить.", Entity = null };
             }
             try
             {
@@ -184,16 +170,18 @@ namespace ElmaSecondTryNHibernate.Repositories
                 }
                 var updatedUser = session.Get<UserBase>(entity.Id);
                 session.Close();
-                return updatedUser;
+                return updatedUser == entity 
+                    ? new RepositoryResult { Status = ActionStatus.Success, Message = $"Пользователь ({entity.Login}) успешно обновлен.", Entity = new UserBase[] {updatedUser} } 
+                    : new RepositoryResult { Status = ActionStatus.Warning, Message = $"Не удалось обновить данные пользователя {entity.Login}.", Entity = null };
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                return new RepositoryResult { Status = ActionStatus.Fatal, Message = $"При обновлении данных пользователя ({entity.Login}) произошла непредвиденная ошибка репозитория. Исключение: {ex.Message}", Entity = null };
             }
         }
 
         /// <summary>
-        /// Проверка значений поля и модели на нулл
+        /// Проверка значений поля и модели на нулл (для фильтрации по базе)
         /// </summary>
         /// <param name="property"></param>
         /// <param name="value"></param>
@@ -202,5 +190,6 @@ namespace ElmaSecondTryNHibernate.Repositories
         {
             return value == null ? Restrictions.Or(Restrictions.Ge(property,null), Restrictions.Ge(property, "")) : Restrictions.Like(property, value.ToString(), MatchMode.Anywhere);
         }
+
     }
 }

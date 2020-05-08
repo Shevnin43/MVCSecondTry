@@ -11,6 +11,7 @@ namespace ElmaSecondTryBase.Enums
         Watch,
         Remote,
         Internship,
-        None
+        None,
+        All
     }
 }

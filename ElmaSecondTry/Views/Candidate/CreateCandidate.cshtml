@@ -1,0 +1,122 @@
+﻿@model ElmaSecondTry.Models.CandidateModel.MyCandidate
+
+
+@using (Html.BeginForm("CreateCandidate", "Candidate", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Новое объявление Кандидата</h4>
+        <hr />
+        @Html.HiddenFor(model => model.OwnerLogin)
+<!--       Html.HiddenFor(model => model.Creator.Role) -->
+        @Html.HiddenFor(model => model.Type)
+        @Html.HiddenFor(model => model.IsBlocked)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="control-label col-md-2">
+                <input type="file" class="btn btn-info" accept="image/*" id="imageFile" name="imageFile" onchange="changeImage()" />
+                <label for="imageFile" style="cursor:pointer" id="imageLabel">
+                    @if (Model.Photo != null && Model.Photo.Length != 0)
+                    {
+                        <img id="imageImg" src="data:image;base64,@System.Convert.ToBase64String(Model.Photo)" width="100" height="100" alt="">
+                    }
+                    else
+                    {
+                        <img id="imageImg" src="~/Images/black-strong/No_photo.png" width="100" height="100" alt="">
+                    }
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Patronymic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Patronymic, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Patronymic, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.About, 5, 50, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BirthDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" id="BirthDay" name="BirthDay" class="form-control" value=@Model.BirthDay.ToString("yyyy-MM-dd") />
+                @Html.ValidationMessageFor(model => model.BirthDay, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Education, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Education, 5, 50, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Education, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Experience, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Experience, 5, 50, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Experience, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Profession, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Profession, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Profession, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeImage() {
+            var inputElement = document.getElementById("imageFile");
+            var file = inputElement.files.item(0);
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var output = e.target.result;
+                var outputElement = document.getElementById("imageLabel");
+                outputElement.innerHTML = "<img id='imageImg' src='" + output + "' width='100' height='100' alt='' />";
+            };
+            reader.readAsDataURL(file);
+        };
+    </script>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

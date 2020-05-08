@@ -5,9 +5,10 @@ using System.Text;
 
 namespace ElmaSecondTryBase.Entities
 {
-    public class VacancyBase : Announcement
+    public class VacancyBase : IAnnouncement
     {
-        /*
+        private bool _isOpen;
+        private DateTime _validDay;
         /// <summary>
         /// Ай-ди объявления
         /// </summary>
@@ -28,7 +29,14 @@ namespace ElmaSecondTryBase.Entities
         /// Пользователь, вносивший последние изменения
         /// </summary>
         public virtual UserBase LastEditor { get; set; }
-        */
+        /// <summary>
+        /// Тип объявления
+        /// </summary>
+        public virtual AnnouncementType Type { get; set; }
+        /// <summary>
+        /// Объявление заблокировано
+        /// </summary>
+        public virtual bool IsBlocked { get; set; }
         /// <summary>
         /// Наименование вакансии
         /// </summary>
@@ -48,11 +56,27 @@ namespace ElmaSecondTryBase.Entities
         /// <summary>
         /// Флаг доступности/открытости вакансии
         /// </summary>
-        public virtual bool IsOpen { get; set; }
+        public virtual bool IsOpen
+        {
+            get
+            {
+                return DateTime.Now < ValidDay;
+            }
+            set 
+            {}
+        } 
         /// <summary>
         /// Дата до которой объявление действительно
         /// </summary>
-        public virtual DateTime ValidDay { get; set; }
+        public virtual DateTime ValidDay 
+        {
+            get { return _validDay; }
+            set 
+            {
+                _validDay = value;
+                _isOpen = DateTime.Now < value; 
+            } 
+        }
         /// <summary>
         /// Зарплата
         /// </summary>

@@ -1,14 +1,11 @@
 ﻿using ElmaSecondTryBase.Enums;
-//using ElmaSecondTryBase.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ElmaSecondTryBase.Entities
 {
-    public class CandidateBase : Announcement
+    public class CandidateBase : IAnnouncement
     {
-        /*
         /// <summary>
         /// Ай-ди объявления
         /// </summary>
@@ -29,7 +26,6 @@ namespace ElmaSecondTryBase.Entities
         /// Пользователь, вносивший последние изменения
         /// </summary>
         public virtual UserBase LastEditor { get; set; }
-        */
         /// <summary>
         /// Имя
         /// </summary>
@@ -42,5 +38,37 @@ namespace ElmaSecondTryBase.Entities
         /// Отчество
         /// </summary>
         public virtual string Patronymic { get; set; }
+        /// <summary>
+        /// О себе
+        /// </summary>
+        public virtual string About { get; set; }
+        /// <summary>
+        /// Дата рождения
+        /// </summary>
+        public virtual DateTime BirthDay { get; set; }
+        /// <summary>
+        /// Образование
+        /// </summary>
+        public virtual string Education { get; set; }
+        /// <summary>
+        /// Опыт работы
+        /// </summary>
+        public virtual string Experience { get; set; }
+        /// <summary>
+        /// Фото
+        /// </summary>
+        public virtual byte[] Photo { get; set; }
+        /// <summary>
+        /// ПРофессия
+        /// </summary>
+        public virtual string Profession { get; set; }
+        /// <summary>
+        /// Тип объявления
+        /// </summary>
+        public virtual AnnouncementType Type { get; set; }
+        /// <summary>
+        /// Объявление заблокировано
+        /// </summary>
+        public virtual bool IsBlocked { get; set; }
     }
 }

@@ -1,0 +1,89 @@
+﻿@model ElmaSecondTry.Models.CandidateModel.MyCandidate
+
+<h2>Информация объявления кандидата</h2>
+
+<div>
+    <hr />
+    @if (Model.IsBlocked)
+    {
+        <h4 style="color:red"> <strong>Данное объявление заблокировано администратором</strong> </h4>
+    }
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="control-label col-md-9" style="text-align : left; vertical-align:central">
+                <dl class="dl-horizontal">
+
+                    @if (Model.Photo != null && Model.Photo.Length != 0)
+                    {
+                        <dt> <img src="data:image;base64,@System.Convert.ToBase64String(Model.Photo)" width="100" height="100" /> </dt>
+                        <dd></dd>
+                    }
+                    <dt>@Html.DisplayNameFor(model => model.OwnerLogin)</dt>
+                    <dd>@Html.ActionLink(Model.OwnerLogin, "ShowUser", "User", new { login = Model.OwnerLogin }, null)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.CreationDate)</dt>
+                    <dd>@Html.DisplayFor(model => model.CreationDate)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.EditorLogin)</dt>
+                    <dd>@Html.ActionLink(Model.EditorLogin, "ShowUser", "User", new { login = Model.EditorLogin }, null)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.LastEdited)</dt>
+                    <dd>@Html.DisplayFor(model => model.LastEdited)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.FirstName)</dt>
+                    <dd>@Html.DisplayFor(model => model.FirstName)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.LastName)</dt>
+                    <dd>@Html.DisplayFor(model => model.LastName)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.Patronymic)</dt>
+                    <dd>@Html.DisplayFor(model => model.Patronymic)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.About)</dt>
+                    <dd>@Html.DisplayFor(model => model.About)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.BirthDay)</dt>
+                    <dd>@Model.BirthDay.ToString("dd.MM.yyyy")</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.Education)</dt>
+                    <dd>@Html.DisplayFor(model => model.Education)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.Experience)</dt>
+                    <dd>@Html.DisplayFor(model => model.Experience)</dd>
+
+                    <dt>@Html.DisplayNameFor(model => model.Profession)</dt>
+                    <dd>@Html.DisplayFor(model => model.Profession)</dd>
+
+                </dl>
+            </div>
+            @if (User.Identity.Name == Model.OwnerLogin || User.IsInRole("Admin"))
+            {
+        <div valign="top" align="right" class="control-label col-md-3">
+            <a href="@Url.Action("EditCandidate", "Candidate", new { id = Model.Id})">
+                <img src="~/Images/black-strong/Edit.png" width="40" title="Редактировать объявление @Model.Id" />
+            </a>
+            <a href='@Url.Action("DeleteAnnouncement", "Announcement", new { id = Model.Id, login = Model.OwnerLogin})' onclick="return confirm('Вы уверены что желаете удалить объявление @Model.Id ?')">
+                <img src="~/Images/black-strong/Delete.png" width="40" title="Удалить объявление @Model.Id" />
+            </a>
+            @if (User.IsInRole("Admin"))
+            {
+                if (Model.IsBlocked)
+                {
+                    <a href='@Url.Action("BlockAnnouncement", "Announcement", new { id = Model.Id, block = false})' onclick="return confirm('Вы уверены что желаете разблокировать объявление @Model.Id ?')">
+                        <img src="~/Images/black-strong/Ok.png" width="40" title="Разблокировать объявление @Model.Id" />
+                    </a>
+                }
+                else
+                {
+                    <a href='@Url.Action("BlockAnnouncement", "Announcement", new { id = Model.Id, block = true})' onclick="return confirm('Вы уверены что желаете заблокировать объявление @Model.Id ?')">
+                        <img src="~/Images/black-strong/Cancel.png" width="40" title="Заблокировать объявление @Model.Id" />
+                    </a>
+                }
+            }
+        </div>
+            }
+            
+        </div>
+    </div>
+</div>
+

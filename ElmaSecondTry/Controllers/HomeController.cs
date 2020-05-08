@@ -1,4 +1,5 @@
-﻿using ElmaSecondTryBase.IRepositories;
+﻿using ElmaSecondTryBase.Entities;
+using ElmaSecondTryBase.IRepositories;
 using System.Web.Mvc;
 
 namespace ElmaSecondTry.Controllers
@@ -29,14 +30,32 @@ namespace ElmaSecondTry.Controllers
         }
 
         /// <summary>
-        /// Отображение страницы Contact
+        /// Отображение сообщения
         /// </summary>
+        /// <param name="status"></param>
+        /// <param name="message"></param>
         /// <returns></returns>
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult ClientMessage(ActionStatus status, string message)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.Message = message;
+            ViewBag.Title = status;
+            switch (status)
+            {
+                case ActionStatus.Fatal:
+                    ViewBag.Color = "red";
+                    break;
+                case ActionStatus.Error:
+                    ViewBag.Color = "orange";
+                    break;
+                case ActionStatus.Warning:
+                    ViewBag.Color = "blue";
+                    break;
+                case ActionStatus.Success:
+                    ViewBag.Color = "green";
+                    break;
+            }
+            return PartialView();
         }
     }
 }

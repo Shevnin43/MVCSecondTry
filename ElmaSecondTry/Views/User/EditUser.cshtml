@@ -1,4 +1,4 @@
-﻿@model ElmaSecondTry.Models.User.EditUser
+﻿@model ElmaSecondTry.Models.UserModel.EditUser
 
 @{
     ViewBag.Title = "Edit";
@@ -10,58 +10,84 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Role, new SelectList(ViewBag.AvailableRoles, "Value", "Text"), htmlAttributes: new { @class = "form-control", onchange = "changeRole()", id="roleInput" })
+                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </div>
+
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Role, Model.AvailableRoles, htmlAttributes : new { @class = "form-control" } )
-            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Сохранить" class="btn btn-success" />
-        </div>
-    </div>
-
-</div>
+    <script>
+        function changeRole() {
+            var inputElement = document.getElementById("roleInput");
+            var message = "ВНИМАНИЕ!!! При сохранении изменений пользователя, все объявления, не соответствующие новой роли, будут автоматически удалены из базы данных БЕЗ ВОЗМОЖНОСТИ ВОССТАНОВЛЕНИЯ. Для выбранной Вами роли '"
+            message += inputElement.value;
+            switch (inputElement.value) {
+                case "Admin":
+                case "None":
+                case "All":
+                    message += "' нет доступных типов объявлений.";
+                    break;
+                case "Jobseeker":
+                    message += "' доступны объявления типа 'Кандидат'.";
+                    break;
+                case "Employee":
+                    message += "' доступны объявления типа 'Вакансия'.";
+                    break;
+                case "HR":
+                    message += "' доступны объявления типа 'Вакансия' и 'Кандидат'.";
+                    break;
+            }
+            message += "Для сохранения объявлений пользователя выберите соответствующую роль перед сохранением изменений.";
+            alert(message);
+            };
+    </script>
 }
 
 

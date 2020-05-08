@@ -1,0 +1,84 @@
+﻿@model ElmaSecondTry.Models.SelectAnnouncements.GeneralSelect
+
+<div class="form-horizontal" >
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td width="5%" style="align-content : end">
+                    <label style="cursor:pointer" onclick="openVacancy()" id="iconVacancyLable" name="lables">
+                        <img src="~/Images/black-strong/Curtail.png" width="25" height="25" title="Свернуть параметры выборки объявлений Вакансий">
+                    </label>
+                </td>
+                <td width="35%">
+                    <h4>Параметры выборки объявлений Вакансий</h4>
+                </td>
+                <td width="5%">
+                </td>
+                <td width="3%">
+                    @Html.CheckBoxFor(model => model.IncludeVacancyes)
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.IncludeVacancyes)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="vacancyParams" name="params">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectVacancyes.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.SelectVacancyes.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectVacancyes.Name, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.SelectVacancyes.IsOpen, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.SelectVacancyes.IsOpen, new List<SelectListItem>()
+                {
+                    new SelectListItem() { Text = "Все", Value = "null" },
+                    new SelectListItem() { Text = "Открыта", Value = "True" },
+                    new SelectListItem() { Text = "Закрыта", Value = "False"}
+                }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SelectVacancyes.IsOpen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectVacancyes.About, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.SelectVacancyes.About, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectVacancyes.About, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.SelectVacancyes.SalaryMin, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.SelectVacancyes.SalaryMin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectVacancyes.SalaryMin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectVacancyes.Requirement, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.SelectVacancyes.Requirement, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectVacancyes.Requirement, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.SelectVacancyes.SalaryMax, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.SelectVacancyes.SalaryMax, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectVacancyes.SalaryMax, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectVacancyes.Employment, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.SelectVacancyes.Employment, new SelectList(ViewBag.Employments, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SelectVacancyes.Employment, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

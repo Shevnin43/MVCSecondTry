@@ -1,0 +1,140 @@
+﻿@model IEnumerable<ElmaSecondTry.Models.MyAnnouncement>
+
+<html>
+<head>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#announcementstable").tablesorter({ cssAsc: "headerSortUp", cssDesc: "headerSortDown", cssHeader: "header" })
+        }
+        );
+    </script>
+</head>
+<body>
+    <div class="modal-body">
+        @if (Model != null && Model.Count() > 0)
+        {
+            <h4>Список объявлений</h4>
+            <table class="table" id="announcementstable">
+                <thead>
+                    <tr style="text-align : center">
+                        <th rowspan="2"> Тип </th>
+                        <th rowspan="2"> Дата создания </th>
+                        <th rowspan="2"> Владелец </th>
+                        <th colspan="2"> Объявление Кандидат </th>
+                        <th colspan="2"> Объявление Вакансия </th>
+                        <th rowspan="2"> Действия </th>
+                    </tr>
+                    <tr>
+                        <th> Фамилия И.О. </th>
+                        <th> Профессия </th>
+                        <th> Должность </th>
+                        <th> З.плата </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            @if (item is ElmaSecondTry.Models.CandidateModel.MyCandidate)
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                                var candidateItem = (ElmaSecondTry.Models.CandidateModel.MyCandidate)item;
+                                <td>@candidateItem.CreationDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@candidateItem.OwnerLogin</td>
+                                <td>@candidateItem.FirstName</td>
+                                <td>@candidateItem.Profession</td>
+                                <td>---нет---</td>
+                                <td>---нет---</td>
+                                <td>
+                                    <a href="@Url.Action("ShowCandidate", "Candidate", new { id = item.Id })" style="margin-left:5px">
+                                        <img src="~/Images/black-strong/Details.png" width="20" title="Посмотреть данные объявления @item.Type @candidateItem.OwnerLogin от @candidateItem.CreationDate" />
+                                    </a>
+                                    @if (User.Identity.Name == candidateItem.OwnerLogin || User.IsInRole("Admin"))
+                                    {
+                                        <a href="@Url.Action("EditCandidate", "Candidate", new { id = item.Id })" style="margin-left:5px">
+                                            <img src="~/Images/black-strong/Edit.png" width="20" title="Редактировать данные объявления @item.Type @candidateItem.OwnerLogin от @candidateItem.CreationDate" />
+                                        </a>
+                                        <a href='@Url.Action("DeleteAnnouncement", "Announcement", new { id = item.Id, login = candidateItem.OwnerLogin })' style="margin-left:5px" onclick="return confirm('Вы уверены что желаете удалить объявление @item.Type от @candidateItem.CreationDate пользователя @candidateItem.OwnerLogin')">
+                                            <img src="~/Images/black-strong/Delete.png" width="20" title="Удальть объявление @item.Type @candidateItem.OwnerLogin от @candidateItem.CreationDate" />
+                                        </a>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        if (!item.IsBlocked)
+                                        {
+                                            <a href='@Url.Action("BlockAnnouncement", "Announcement", new { id = item.Id, block = true })' style="margin-left:5px" onclick="return confirm('Вы уверены что желаете заблокировать объявление @item.Type от @candidateItem.CreationDate пользователя @candidateItem.OwnerLogin ?')">
+                                                <img src="~/Images/black-strong/Cancel.png" width="20" title="Заблокировать объявление @item.Type @candidateItem.OwnerLogin от @candidateItem.CreationDate" />
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href='@Url.Action("BlockAnnouncement", "Announcement", new { id = item.Id, block = false })' style="margin-left:5px" onclick="return confirm('Вы уверены что желаете разблокировать объявление @item.Type от @candidateItem.CreationDate пользователя @candidateItem.OwnerLogin ?')">
+                                                <img src="~/Images/black-strong/Ok.png" width="20" title="Разблокировать объявление @item.Type @candidateItem.OwnerLogin от @candidateItem.CreationDate" />
+                                            </a>
+                                        }
+                                    }
+                                    </td>
+                            }
+                            @if (item is ElmaSecondTry.Models.VacancyModel.MyVacancy)
+                            {
+                                <td>@Html.DisplayFor(modelItem => item.Type)</td>
+                                var vacancyItem = (ElmaSecondTry.Models.VacancyModel.MyVacancy)item;
+                                <td>@vacancyItem.CreationDate.ToString("dd.MM.yyyy HH:mm")</td>
+                                <td>@vacancyItem.OwnerLogin</td>
+                                <td>---нет---</td>
+                                <td>---нет---</td>
+                                <td>@vacancyItem.Name</td>
+                                <td>@vacancyItem.Salary</td>
+                                <td>
+                                    <a href="@Url.Action("ShowVacancy", "Vacancy", new { id = item.Id })" style="margin-left:5px">
+                                        <img src="~/Images/black-strong/Details.png" width="20" title="Посмотреть данные объяявления @item.Type @vacancyItem.OwnerLogin от @vacancyItem.CreationDate" />
+                                    </a>
+                                    @if (User.Identity.Name == vacancyItem.OwnerLogin || User.IsInRole("Admin"))
+                                    {
+                                        <a href="@Url.Action("EditVacancy", "Vacancy", new { id = item.Id })" style="margin-left:5px">
+                                            <img src="~/Images/black-strong/Edit.png" width="20" title="Редактировать данные объявления @item.Type @vacancyItem.OwnerLogin от @vacancyItem.CreationDate" />
+                                        </a>
+                                        <a href='@Url.Action("DeleteAnnouncement", "Announcement", new { id = item.Id, login = vacancyItem.OwnerLogin })' style="margin-left:5px" onclick="return confirm('Вы уверены что желаете удалить объявление @item.Type от @vacancyItem.CreationDate пользователя @vacancyItem.OwnerLogin ?')">
+                                            <img src="~/Images/black-strong/Delete.png" width="20" title="Удальть объявление @item.Type @vacancyItem.OwnerLogin от @vacancyItem.CreationDate" />
+                                        </a>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        if (!item.IsBlocked)
+                                        {
+                                            <a href='@Url.Action("BlockAnnouncement", "Announcement", new { id = item.Id, block = true })' style="margin-left:5px" onclick="return confirm('Вы уверены что желаете заблокировать объявление @item.Type от @vacancyItem.CreationDate пользователя @vacancyItem.OwnerLogin ?')">
+                                                <img src="~/Images/black-strong/Cancel.png" width="20" title="Заблокировать объявление @item.Type @vacancyItem.OwnerLogin от @vacancyItem.CreationDate" />
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href='@Url.Action("BlockAnnouncement", "Announcement", new { id = item.Id, block = false })' style="margin-left:5px" onclick="return confirm('Вы уверены что желаете разблокировать объявление @item.Type от @vacancyItem.CreationDate пользователя @vacancyItem.OwnerLogin ?')">
+                                                <img src="~/Images/black-strong/Ok.png" width="20" title="Разблокировать объявление @item.Type @vacancyItem.OwnerLogin от @vacancyItem.CreationDate" />
+                                            </a>
+                                        }
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h4>К сожалению, искомые объявления не найдены</h4>
+        }
+    </div>
+</body>
+
+</html>
+
+
+@if (TempData.Count > 0)
+{
+    <script>ShowMessage('/Home/ClientMessage?status=@TempData["status"]&message=@TempData["message"]');</script>
+}
+
+

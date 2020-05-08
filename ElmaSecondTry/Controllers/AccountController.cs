@@ -1,14 +1,11 @@
-﻿using ElmaSecondTryBase.Enums;
-using ElmaSecondTry.Models.Account;
-using ElmaSecondTry.Models.User;
+﻿using ElmaSecondTry.Models.AccountModel;
 using ElmaSecondTryBase.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using AutoMapper;
 using ElmaSecondTryBase.IRepositories;
+using System.Linq;
 
 namespace ElmaSecondTry.Controllers
 {
@@ -53,15 +50,26 @@ namespace ElmaSecondTry.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home"); //TOREDO
+                TempData["message"] = $"Указанные данные не валидны.";
+                TempData["status"] = ActionStatus.Error;
+                return View("Authorization");
             }
-            var authUser = _userRepository.FindUser(authorization.Login);
-            if (authUser!=null && authUser.Password==authorization.Password)
+            var repositoryResult = _userRepository.FindUser(authorization.Login);
+            if (repositoryResult.Status != ActionStatus.Success)
             {
-                FormsAuthentication.SetAuthCookie(authUser.Login, true);
-                return RedirectToAction("ShowUser", "User", new { authUser.Login });
+                TempData["Message"] = repositoryResult.Message;
+                TempData["Status"] = repositoryResult.Status;
+                return View("Authorization");
             }
-            return RedirectToAction("Index", "Home"); //TOREDO
+            var authUser = repositoryResult.Entity.First() as UserBase;
+            if (authUser.Password !=authorization.Password)
+            {
+                MessageForClient(ActionStatus.Error, $"Неверный пароль!");
+                return View("Authorization");
+            }
+            FormsAuthentication.SetAuthCookie(authUser.Login, true);
+            MessageForClient(ActionStatus.Success, $"Вы успешно авторизовались как ({authUser.Login}) !");
+            return RedirectToAction("ShowUser", "User", new { authUser.Login });
         }
 
         /// <summary>
@@ -83,15 +91,24 @@ namespace ElmaSecondTry.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home"); //TOREDO
+                MessageForClient(ActionStatus.Error, $"Указанные данные не валидны.");
+                return View("Registration");
             }
-            var savedUser = _userRepository.CreateUser(_mapper.Map<Registration, UserBase>(registration));
-            if (savedUser != null )
+            var repositoryResult = _userRepository.FindUser(registration.Login);
+            if (repositoryResult.Status == ActionStatus.Success)
             {
-                FormsAuthentication.SetAuthCookie(savedUser.Login, true);
-                return RedirectToAction("ShowUser", "User", new { savedUser.Login });
+                MessageForClient(ActionStatus.Error, $"Пользователь с логином ({registration.Login}) уже существует, выберите пожалуйста другой логин!");
+                return View("Registration"); 
             }
-            return RedirectToAction("Index", "Home"); //TOREDO
+            var savedResult = _userRepository.CreateUser(_mapper.Map<Registration, UserBase>(registration));
+            MessageForClient(savedResult.Status, savedResult.Message);
+            if (savedResult.Status != ActionStatus.Success)
+            {
+                return View("Registration");
+            }
+            var savedUser = savedResult.Entity.First() as UserBase;
+            FormsAuthentication.SetAuthCookie(savedUser.Login, true);
+            return RedirectToAction("ShowUser", "User", new { savedUser.Login });
         }
 
         /// <summary>
@@ -111,10 +128,16 @@ namespace ElmaSecondTry.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize]
-        public ActionResult EditAccount(Guid id)
+        public ActionResult EditAccount(string login)
         {
-            var userFromDb = _userRepository.FindUser(id);
-            return View(_mapper.Map< UserBase, EditAccount>(userFromDb));
+            var repositoryResult = _userRepository.FindUser(login);
+            if (repositoryResult.Status != ActionStatus.Success)
+            {
+                MessageForClient(repositoryResult.Status, repositoryResult.Message);
+                return View("~/Views/Home/Index.cshtml");
+            }
+            var userFromDb = repositoryResult.Entity.First() as UserBase;
+            return View(_mapper.Map<UserBase, EditAccount>(userFromDb));
         }
 
         /// <summary>
@@ -128,18 +151,60 @@ namespace ElmaSecondTry.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home"); //TOREDO
+                MessageForClient(ActionStatus.Error, $"Указанные данные не валидны.");
+                return View("~/Views/Account/EditAccount.cshtml");
             }
-            var userFromDb = _userRepository.FindUser(editAccount.Id);
-            if(userFromDb==null)
+            var repositoryResult = _userRepository.FindUser(editAccount.Login);
+            if (repositoryResult.Status != ActionStatus.Success)
             {
-                return RedirectToAction("Index", "Home"); //TOREDO
+                MessageForClient(repositoryResult.Status, repositoryResult.Message);
+                return View("~/Views/Home/Index.cshtml");
             }
-            userFromDb.Login = editAccount.Login;
-            userFromDb.Password = editAccount.Password;
-            var savedUser = _userRepository.UpdateUser(userFromDb);
+            var userFromDb = repositoryResult.Entity.First() as UserBase;
+            if (editAccount.Password!=userFromDb.Password)
+            {
+                MessageForClient(ActionStatus.Error, $"Введен неверный пароль!");
+                return View("~/Views/Account/EditAccount.cshtml");
+            }
+            if (!string.IsNullOrWhiteSpace(editAccount.NewLogin))
+            {
+                if (_userRepository.FindUser(editAccount.NewLogin).Status == ActionStatus.Success)
+                {
+                    MessageForClient(ActionStatus.Error, $"Пользователь с логином ({editAccount.NewLogin}) уже существует, выберите пожалуйста другой логин!");
+                    return View("~/Views/Account/EditAccount.cshtml");
+                }
+                userFromDb.Login = editAccount.NewLogin;
+            }
+            if (!string.IsNullOrWhiteSpace(editAccount.NewPassword))
+            {
+                userFromDb.Password = editAccount.NewPassword;
+            }
+            if (string.IsNullOrWhiteSpace(editAccount.NewPassword) && string.IsNullOrWhiteSpace(editAccount.NewLogin))
+            {
+                MessageForClient(ActionStatus.Success, $"Вы остались при своих регистрационных данных.");
+                return RedirectToAction("ShowUser", "User", new { editAccount.Login });
+            }
+            var savedResult = _userRepository.UpdateUser(userFromDb);
+            MessageForClient(savedResult.Status, savedResult.Message);
+            if (savedResult.Status != ActionStatus.Success)
+            {
+                return RedirectToAction("ShowUser", "User", new { editAccount.Login });
+            }
+            var savedUser = savedResult.Entity.First() as UserBase;
+            FormsAuthentication.SignOut();
+            FormsAuthentication.SetAuthCookie(savedUser.Login, true);
+            return RedirectToAction("ShowUser", "User", new { savedUser.Login }); 
+        }
 
-            return savedUser != null ? RedirectToAction("ShowUser", "User", new { savedUser.Login }) : RedirectToAction("Index", "Home");         //TOREDO
+        /// <summary>
+        /// Формирование сообщения для клиента
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="message"></param>
+        private void MessageForClient(ActionStatus status, string message)
+        {
+            TempData["message"] = message;
+            TempData["status"] = status;
         }
     }
 }
