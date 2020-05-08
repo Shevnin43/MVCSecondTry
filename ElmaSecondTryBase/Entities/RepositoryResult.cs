@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ElmaSecondTryBase.Entities
 {
@@ -16,7 +14,7 @@ namespace ElmaSecondTryBase.Entities
     }
 
     /// <summary>
-    /// Класс, возвращаемый в качестве результата всех действий репозитория
+    /// Класс, возвращаемый в качестве результата всех действий репозиториев
     /// </summary>
     public class RepositoryResult
     {

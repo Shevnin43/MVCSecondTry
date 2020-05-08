@@ -77,26 +77,6 @@ namespace ElmaSecondTry.Controllers
         }
 
         /// <summary>
-        /// Отображение информации об объявлении вакансии
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Authorize(Roles = "Employee, HR, Admin, Jobseeker")]
-        public ActionResult ShowVacancy(Guid id)
-        {
-            var repositoryResult = _announcementRepository.FindAnnouncement(id);
-            if (repositoryResult.Status != ActionStatus.Success)
-            {
-                MessageForClient(repositoryResult.Status, repositoryResult.Message);
-                return RedirectToAction("Index", "Home");
-            }
-            var dbVacancy = repositoryResult.Entity.First() as VacancyBase;
-            ViewBag.TimeJob = General.Employments[dbVacancy.Employment];
-            return View(_mapper.Map<VacancyBase, MyVacancy>(dbVacancy));
-        }
-
-
-        /// <summary>
         /// Отображение представления редактирования объявления вакансии
         /// </summary>
         /// <param name="id"></param>
@@ -115,7 +95,7 @@ namespace ElmaSecondTry.Controllers
             if (!User.IsInRole("Admin") && User.Identity.Name != editingVacancy.Creator.Login)
             {
                 MessageForClient(ActionStatus.Error, "У вас недостаточно прав для редактирования данного объявления!");
-                return RedirectToAction("ShowVacancy", "Vacancy", new { id });
+                return RedirectToAction("ShowAnnouncement", "Announcement", new { id });
             }
 
             var timesJob = Enum.GetValues(typeof(TimeJob)).Cast<TimeJob>().Where(x => x != TimeJob.All);
@@ -146,7 +126,7 @@ namespace ElmaSecondTry.Controllers
             if ((repositoryResult.Entity.First() as VacancyBase).Creator.Login != User.Identity.Name && !User.IsInRole("Admin"))
             {
                 MessageForClient(ActionStatus.Error, "У вас недостаточно прав для редактирования данного объявления!");
-                return RedirectToAction("ShowVacancy", "Vacancy", new { editingVacancy.Id });
+                return RedirectToAction("ShowAnnouncement", "Announcement", new { editingVacancy.Id });
             }
              repositoryResult = _userRepository.FindUser(User.Identity.Name);
             if (repositoryResult.Status != ActionStatus.Success)
@@ -160,7 +140,7 @@ namespace ElmaSecondTry.Controllers
             MessageForClient(repositoryResult.Status, repositoryResult.Message);
 
             return repositoryResult.Status == ActionStatus.Success
-                ? RedirectToAction("ShowVacancy", "Vacancy", new { (repositoryResult.Entity.First() as VacancyBase).Id })
+                ? RedirectToAction("ShowAnnouncement", "Announcement", new { (repositoryResult.Entity.First() as VacancyBase).Id })
                 : RedirectToAction("Index", "Home");
         }
 

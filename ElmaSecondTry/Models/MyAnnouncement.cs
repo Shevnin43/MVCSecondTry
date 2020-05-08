@@ -4,7 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ElmaSecondTry.Models
 {
-    public class MyAnnouncement
+    /// <summary>
+    /// Базовый класс для моделей объявлений ElmaSecondTry
+    /// </summary>
+    public class MyAnnouncement : IMyAnnouncement
     {
         /// <summary>
         /// Ай-ди объявления
@@ -22,10 +25,12 @@ namespace ElmaSecondTry.Models
         /// <summary>
         /// Логин владельца
         /// </summary>
+        [Display(Name ="Создатель")]
         public string OwnerLogin { get; set; }
         /// <summary>
         /// Логин редактора
         /// </summary>
+        [Display(Name = "Редактор")]
         public string EditorLogin { get; set; }
         /// <summary>
         /// Дата создания вакансии

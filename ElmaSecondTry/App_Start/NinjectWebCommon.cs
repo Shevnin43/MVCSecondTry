@@ -9,6 +9,9 @@ namespace ElmaSecondTry.App_Start
     using Ninject;
     using Ninject.Web.Common;
 
+    /// <summary>
+    ///  ласс настроек Ninject создаетс€ автоматически при установке пакета
+    /// </summary>
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -54,7 +57,7 @@ namespace ElmaSecondTry.App_Start
         }
 
         /// <summary>
-        /// Load your modules or register your services here!
+        /// ћетод регистрации сервисов
         /// </summary>
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)

@@ -1,13 +1,11 @@
-﻿using ElmaSecondTry.Models;
-using ElmaSecondTry.Models.CandidateModel;
-using ElmaSecondTry.Models.VacancyModel;
-using ElmaSecondTryBase.Entities;
-using ElmaSecondTryBase.Enums;
-using System;
+﻿using ElmaSecondTryBase.Enums;
 using System.Collections.Generic;
 
 namespace ElmaSecondTry.Helpers
 {
+    /// <summary>
+    /// Справочник всякой слегка полезной информации
+    /// </summary>
     public static class General
     {
 
@@ -74,6 +72,9 @@ namespace ElmaSecondTry.Helpers
             [TimeJob.All] = "Все варианты"
         };
 
+        /// <summary>
+        /// Список свойств модели GeneralSelect по которым не надо делать выборку из базы данных
+        /// </summary>
         public static readonly string[] NotFilteredProperties = new string[] 
         { 
             "CanSelectVacancyes", 
@@ -86,6 +87,10 @@ namespace ElmaSecondTry.Helpers
             "AgeMax"
         };
 
+        /// <summary>
+        /// Список свойств модели GeneralSelect которые имеют тип bool? нужны только для обхода валидации моделей на стороне сервера, 
+        /// которая, почему то считает модель не валидной если bool? == null
+        /// </summary>
         public static readonly string[] NulableBoolPropertyes = new string[] { "SelectVacancyes.IsOpen", "IsBlocked" };
     }
 }

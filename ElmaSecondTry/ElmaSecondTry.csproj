@@ -167,6 +167,7 @@
     <Compile Include="Models\AccountModel\Authorization.cs" />
     <Compile Include="Models\AccountModel\EditAccount.cs" />
     <Compile Include="Models\AccountModel\Registration.cs" />
+    <Compile Include="Models\IMyAnnouncement.cs" />
     <Compile Include="Models\MyAnnouncement.cs" />
     <Compile Include="Models\CandidateModel\MyCandidate.cs" />
     <Compile Include="Models\SelectAnnouncements\GeneralSelect.cs" />
@@ -229,15 +230,16 @@
     <Content Include="Views\User\ShowListUsers.cshtml" />
     <Content Include="Views\Announcement\ListAnnouncement.cshtml" />
     <Content Include="Views\Candidate\CreateCandidate.cshtml" />
-    <Content Include="Views\Candidate\ShowCandidate.cshtml" />
     <Content Include="Views\Shared\ClientMessage.cshtml" />
     <Content Include="Views\Candidate\EditCandidate.cshtml" />
     <Content Include="Views\Vacancy\CreateVacancy.cshtml" />
-    <Content Include="Views\Vacancy\ShowVacancy.cshtml" />
     <Content Include="Views\Vacancy\EditVacancy.cshtml" />
     <Content Include="Views\Announcement\AnnouncementsSelect.cshtml" />
     <Content Include="Views\Announcement\VacancySelect.cshtml" />
     <Content Include="Views\Announcement\CandidateSelect.cshtml" />
+    <Content Include="Views\Announcement\ShowAnnouncement.cshtml" />
+    <Content Include="Views\Candidate\ShowCandidatePartial.cshtml" />
+    <Content Include="Views\Vacancy\ShowVacancyPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

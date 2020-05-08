@@ -1,15 +1,17 @@
 ﻿using ElmaSecondTryBase.Entities;
-using NHibernate;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ElmaSecondTryNHibernate.NHibernateMappings
 {
+    /// <summary>
+    /// Класс маппинга интерфейса IAnnouncement 
+    /// </summary>
     public class AnnouncementMap : ClassMapping<IAnnouncement>
     {
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public AnnouncementMap()
         {
             Id(x => x.Id);

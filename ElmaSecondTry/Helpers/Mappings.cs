@@ -8,6 +8,9 @@ using ElmaSecondTryBase.Entities;
 
 namespace ElmaSecondTry.Helpers
 {
+    /// <summary>
+    /// Класс маппинга моделей ElmaSecondTry.Base в модели ElmaSecondTry и обратно
+    /// </summary>
     public static class Mappings
     {
         public static MapperConfiguration ConfigureMapping()
@@ -18,11 +21,7 @@ namespace ElmaSecondTry.Helpers
                 cfg.CreateMap<Authorization, UserBase>();
                 cfg.CreateMap<EditAccount, UserBase>().ReverseMap();
 
-                cfg.CreateMap<IAnnouncement, MyAnnouncement>()
-                .IncludeAllDerived();
-
-                //cfg.CreateMap<IAnnouncement, MyCandidate>();
-                //cfg.CreateMap<IAnnouncement, MyVacancy>();
+                cfg.CreateMap<IAnnouncement, MyAnnouncement>().IncludeAllDerived();
 
                 cfg.CreateMap<ShowUser, UserBase>().ReverseMap();
                 cfg.CreateMap<EditUser, UserBase>().ReverseMap();

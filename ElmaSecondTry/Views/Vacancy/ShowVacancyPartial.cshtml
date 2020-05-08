@@ -1,0 +1,40 @@
+﻿@model ElmaSecondTry.Models.VacancyModel.MyVacancy
+
+<dt>@Html.DisplayNameFor(model => model.OwnerLogin)</dt>
+<dd>@Html.ActionLink(Model.OwnerLogin, "ShowUser", "User", new { login = Model.OwnerLogin }, null)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.CreationDate)</dt>
+<dd>@Html.DisplayFor(model => model.CreationDate)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.EditorLogin)</dt>
+<dd>@Html.ActionLink(Model.EditorLogin, "ShowUser", "User", new { login = Model.EditorLogin }, null)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.LastEdited)</dt>
+<dd>@Html.DisplayFor(model => model.LastEdited)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.Name)</dt>
+<dd>@Html.DisplayFor(model => model.Name)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.About)</dt>
+<dd>@Html.DisplayFor(model => model.About)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.Requirement)</dt>
+<dd>@Html.DisplayFor(model => model.Requirement)</dd>
+
+<dt>Занятость</dt>
+<dd>@ViewBag.TimeJob</dd>
+
+<dt>@Html.DisplayNameFor(model => model.ValidDay)</dt>
+<dd>@Html.DisplayFor(model => model.ValidDay)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.Salary)</dt>
+<dd>@Html.DisplayFor(model => model.Salary)</dd>
+@if (!Model.IsOpen)
+{
+    <dt style="color:red">Вакансия не актуальна</dt>
+}
+else
+{
+    <dt style="color:green">Вакансия актуальна</dt>
+}
+<dd></dd>

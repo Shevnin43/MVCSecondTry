@@ -6,7 +6,6 @@ using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ElmaSecondTryNHibernate.Repositories
 {
@@ -114,7 +113,7 @@ namespace ElmaSecondTryNHibernate.Repositories
         }
 
         /// <summary>
-        /// Фильтрация пользователей
+        /// Выборка пользователей
         /// </summary>
         /// <param name="user"></param>
         /// <param name="period"></param>

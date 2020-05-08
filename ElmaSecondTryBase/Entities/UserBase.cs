@@ -1,18 +1,11 @@
 ﻿using ElmaSecondTryBase.Enums;
-using ElmaSecondTryBase.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Runtime.CompilerServices;
-using System.ComponentModel;
-using System.Linq;
 
 namespace ElmaSecondTryBase.Entities
 {
     public class UserBase
     {
-        private ICollection<IAnnouncement> _announcments;
-
         /// <summary>
         /// Наименование пользователя
         /// </summary>
@@ -52,11 +45,7 @@ namespace ElmaSecondTryBase.Entities
         /// <summary>
         /// Список объявлений пользователя
         /// </summary>
-        public virtual ICollection<IAnnouncement> Announcements
-        {
-            get { return _announcments; }
-            set { _announcments = value; }
-        }
+        public virtual ICollection<IAnnouncement> Announcements { get; set; }
         /// <summary>
         /// Дата регистрации пользователя
         /// </summary>
