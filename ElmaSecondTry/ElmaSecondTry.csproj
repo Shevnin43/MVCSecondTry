@@ -152,27 +152,31 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnnouncementController.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VacancyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\BackPage.cs" />
     <Compile Include="Helpers\Mappings.cs" />
     <Compile Include="Helpers\NinjectDependencyResolver.cs" />
-    <Compile Include="Models\Account\AccountBase.cs" />
-    <Compile Include="Models\Account\Authorization.cs" />
-    <Compile Include="Models\Account\EditAccount.cs" />
-    <Compile Include="Models\Account\Registration.cs" />
-    <Compile Include="Models\Announcement.cs" />
-    <Compile Include="Models\User\BaseUser.cs" />
-    <Compile Include="Models\User\EditUser.cs" />
-    <Compile Include="Models\User\FilterUser.cs" />
-    <Compile Include="Models\User\ShowUser.cs" />
-    <Compile Include="Models\Vacancy\BaseVacancy.cs" />
-    <Compile Include="Models\Vacancy\CreateVacancy.cs" />
-    <Compile Include="Models\Vacancy\EditVacancy.cs" />
-    <Compile Include="Models\Vacancy\ShowVacancy.cs" />
+    <Compile Include="Helpers\General.cs" />
+    <Compile Include="Models\AccountModel\MyAccount.cs" />
+    <Compile Include="Models\AccountModel\Authorization.cs" />
+    <Compile Include="Models\AccountModel\EditAccount.cs" />
+    <Compile Include="Models\AccountModel\Registration.cs" />
+    <Compile Include="Models\MyAnnouncement.cs" />
+    <Compile Include="Models\CandidateModel\MyCandidate.cs" />
+    <Compile Include="Models\SelectAnnouncements\GeneralSelect.cs" />
+    <Compile Include="Models\SelectAnnouncements\SelectCandidates.cs" />
+    <Compile Include="Models\SelectAnnouncements\SelectVacancyes.cs" />
+    <Compile Include="Models\UserModel\MyUser.cs" />
+    <Compile Include="Models\UserModel\EditUser.cs" />
+    <Compile Include="Models\UserModel\FilterUser.cs" />
+    <Compile Include="Models\UserModel\ShowUser.cs" />
+    <Compile Include="Models\VacancyModel\MyVacancy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomRoleProvider.cs" />
   </ItemGroup>
@@ -187,12 +191,16 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Helpers\ProjectScript.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.tablesorter.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -219,10 +227,20 @@
     <Content Include="Views\Account\EditAccount.cshtml" />
     <Content Include="Views\User\FilterUser.cshtml" />
     <Content Include="Views\User\ShowListUsers.cshtml" />
+    <Content Include="Views\Announcement\ListAnnouncement.cshtml" />
+    <Content Include="Views\Candidate\CreateCandidate.cshtml" />
+    <Content Include="Views\Candidate\ShowCandidate.cshtml" />
+    <Content Include="Views\Shared\ClientMessage.cshtml" />
+    <Content Include="Views\Candidate\EditCandidate.cshtml" />
+    <Content Include="Views\Vacancy\CreateVacancy.cshtml" />
+    <Content Include="Views\Vacancy\ShowVacancy.cshtml" />
+    <Content Include="Views\Vacancy\EditVacancy.cshtml" />
+    <Content Include="Views\Announcement\AnnouncementsSelect.cshtml" />
+    <Content Include="Views\Announcement\VacancySelect.cshtml" />
+    <Content Include="Views\Announcement\CandidateSelect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Candidate\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

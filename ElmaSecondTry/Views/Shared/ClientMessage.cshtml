@@ -1,0 +1,22 @@
+﻿<style>
+    .ClientMessage {
+        text-align: center;
+        color: @ViewBag.Color;
+    }
+    .ClientTitle {
+        color: @ViewBag.Color;
+    }
+</style>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4 class="ClientTitle">@ViewBag.Title</h4>
+    </div>
+    <div class="modal-body">
+        <h4 class="ClientMessage"><strong>@ViewBag.Message</strong></h4>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" data-dismiss="modal">Принято</button>
+    </div>
+</div>

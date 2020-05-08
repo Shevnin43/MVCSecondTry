@@ -1,0 +1,154 @@
+﻿@model ElmaSecondTry.Models.SelectAnnouncements.GeneralSelect
+
+<h2>Фильтр объявлений</h2>
+<hr />
+
+@using (Ajax.BeginForm("AnnouncementsSelect", new AjaxOptions { UpdateTargetId = "selected" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td width="5%" style="align-content : end">
+                        <label style="cursor:pointer" onclick="openGeneral()" id="iconLable" name="lables">
+                            <img src="~/Images/black-strong/Curtail.png" width="25" height="25" title="Свернуть обобщенные параметры выборки объявлений">
+                        </label>
+                    </td>
+                    <td width="95%">
+                        <h4> Обобщенные параметры выборки объявлений</h4>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        @Html.HiddenFor(model => model.CanSelectCandidates)
+        @Html.HiddenFor(model => model.CanSelectVacancyes)
+    <div id="generalParams" name="params">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreationDateMin, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                <input type="datetime-local" name="CreationDateMin" class="form-control" value=@Model.CreationDateMin.ToString("yyyy-MM-ddTHH:mm") />
+                @Html.ValidationMessageFor(model => model.CreationDateMin, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.LastEditedMin, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                <input type="datetime-local" name="LastEditedMin" class="form-control" value=@Model.LastEditedMin.ToString("yyyy-MM-ddTHH:mm") />
+                @Html.ValidationMessageFor(model => model.LastEditedMin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreationDateMax, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                <input type="datetime-local" name="CreationDateMax" class="form-control" value=@Model.CreationDateMax.ToString("yyyy-MM-ddTHH:mm") />
+                @Html.ValidationMessageFor(model => model.CreationDateMax, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.LastEditedMax, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-3">
+                <input type="datetime-local" name="LastEditedMax" class="form-control" value=@Model.LastEditedMax.ToString("yyyy-MM-ddTHH:mm") />
+                @Html.ValidationMessageFor(model => model.LastEditedMax, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsBlocked, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.IsBlocked, new List<SelectListItem>()
+                        {
+                            new SelectListItem() { Text = "Все", Value = "null" },
+                            new SelectListItem() { Text = "Заблокированные", Value = "True" },
+                            new SelectListItem() { Text = "Не заблокированные", Value = "False"}
+                        }, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IsBlocked, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.IsBlocked)
+        }
+    </div>
+    </div>
+
+    if (Model.CanSelectCandidates)
+    {
+
+        @Html.Partial("~/Views/Announcement/CandidateSelect.cshtml", Model);
+    }
+    if (Model.CanSelectVacancyes)
+    {
+
+        @Html.Partial("~/Views/Announcement/VacancySelect.cshtml", Model);
+    }
+    <hr/>
+
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-9 col-md-1">
+                <input type="submit" value="Показать результат" class="btn btn-success" onclick="CloseAll()"/>
+            </div>
+            <div class="col-md-offset-1 col-md-1">
+                <input type="reset" value="Очистить форму" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+
+    <div id="selected"></div>
+}
+<script>
+    function CloseAll() {
+        ParamsElements = document.getElementsByName("params");
+        for (let i = 0; i < ParamsElements.length; i++) {
+            ParamsElements[i].setAttribute("hidden", "hidden");
+        }
+        LablesElements = document.getElementsByName("lables");
+        for (let i = 0; i < LablesElements.length; i++) {
+            LablesElements[i].innerHTML = "<img src='/Images/black-strong/Deploy.png' width='25' height='25' title='Развернуть обобщенные параметры выборки объявлений' />";
+        }
+    }
+
+    function openGeneral() {
+        var generalElement = document.getElementById("generalParams");
+        var iconElement = document.getElementById("iconLable");
+        if (generalElement.hasAttribute("hidden")) {
+            generalElement.removeAttribute("hidden");
+            iconElement.innerHTML = "<img src='/Images/black-strong/Curtail.png' width='25' height='25' title='Свернуть обобщенные параметры выборки объявлений' />";
+        }
+        else {
+            generalElement.setAttribute("hidden", "hidden");
+            iconElement.innerHTML = "<img src='/Images/black-strong/Deploy.png' width='25' height='25' title='Развернуть обобщенные параметры выборки объявлений' />";
+        }
+    };
+
+    function openCandidate() {
+        var candidateElement = document.getElementById("candidateParams");
+        var iconCandidateElement = document.getElementById("iconCandidateLable");
+        if (candidateElement.hasAttribute("hidden")) {
+            candidateElement.removeAttribute("hidden");
+            iconCandidateElement.innerHTML = "<img src='/Images/black-strong/Curtail.png' width='25' height='25' title='Свернуть параметры выборки объявлений Вакансий' />";
+        }
+        else {
+            candidateElement.setAttribute("hidden", "hidden");
+            iconCandidateElement.innerHTML = "<img src='/Images/black-strong/Deploy.png' width='25' height='25' title='Развернуть параметры выборки объявлений Вакансий' />";
+        }
+    };
+    function openVacancy() {
+        var vacancyElement = document.getElementById("vacancyParams");
+        var iconVacancyElement = document.getElementById("iconVacancyLable");
+        if (vacancyElement.hasAttribute("hidden")) {
+            vacancyElement.removeAttribute("hidden");
+            iconVacancyElement.innerHTML = "<img src='/Images/black-strong/Curtail.png' width='25' height='25' title='Свернуть параметры выборки объявлений Кандидатов' />";
+        }
+        else {
+            vacancyElement.setAttribute("hidden", "hidden");
+            iconVacancyElement.innerHTML = "<img src='/Images/black-strong/Deploy.png' width='25' height='25' title='Развернуть параметры выборки объявлений Кандидатов' />";
+        }
+    };
+</script>
+
+

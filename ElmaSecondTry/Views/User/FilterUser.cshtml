@@ -1,87 +1,86 @@
-﻿@model ElmaSecondTry.Models.User.FilterUser
-
-@{
-    ViewBag.Title = "FilterUser";
-}
+﻿@model ElmaSecondTry.Models.UserModel.FilterUser
 
 <h2>Фильтр пользователей</h2>
 
 
-@using (Ajax.BeginForm("ShowListUsers", new AjaxOptions { UpdateTargetId = "selected" }))
+@using (Ajax.BeginForm("ShowFilteredUsers", new AjaxOptions { UpdateTargetId = "selected" }))
 
 {
     @Html.AntiForgeryToken()
 
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownListFor(model => model.Role, new SelectList(ViewBag.AvailableRoles, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="Registered_Item1">Зарегистрирован с</label>
+        <div class="col-md-4">
+            <input type="datetime-local" id="MinRegisterDate" name="MinRegisterDate" class="form-control" value=@Model.MinRegisterDate.ToString("yyyy-MM-ddTHH:mm") />
+            @Html.ValidationMessageFor(model => model.MinRegisterDate, "", new { @class = "text-danger" })
+        </div>
+
+        <label class="control-label col-md-2" for="Registered_Item2">Зарегистрирован до</label>
+        <div class="col-md-4">
+            <input type="datetime-local" id="MaxRegisterDate" name="MaxRegisterDate" class="form-control" value=@Model.MaxRegisterDate.ToString("yyyy-MM-ddTHH:mm") />
+            @Html.ValidationMessageFor(model => model.MaxRegisterDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
     <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            <div class="col-md-offset-8 col-md-1">
+                <input type="submit" value="Показать результат" class="btn btn-success" />
             </div>
-            @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EnumDropDownListFor(model => model.Role, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="Registered_Item1">Зарегистрирован с</label>
-            <div class="col-md-4">
-                <input type="date" value=@Model.Registered.Min.ToString("yyyy-MM-dd") class="form-control" />
-                @Html.ValidationMessageFor(model => model.Registered.Min, "", new { @class = "text-danger" })
-            </div>
-            <label class="control-label col-md-2" for="Registered_Item2">Зарегистрирован до</label>
-            <div class="col-md-4">
-                <input type="date" value=@Model.Registered.Max.ToString("yyyy-MM-dd") class="form-control" />
-                @Html.ValidationMessageFor(model => model.Registered.Max, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-8 col-md-4">
-                <input type="submit" value="Показать результат" class="btn btn-success"/>
+            <div class="col-md-offset-1 col-md-1">
+                <input type="reset" value="Очистить форму" class="btn btn-info" />
             </div>
         </div>
     </div>
+</div>
 }
 <div id="selected"></div>
 
 
 
-@section Scripts {
-    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
-    @Scripts.Render("~/bundles/jqueryval")
-}
+

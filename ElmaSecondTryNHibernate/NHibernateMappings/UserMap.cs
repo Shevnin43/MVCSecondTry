@@ -1,82 +1,53 @@
 ﻿using ElmaSecondTryBase.Entities;
-using NHibernate;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ElmaSecondTryNHibernate.NHibernateMappings
 {
+    /// <summary>
+    /// Маппинг модели UserBase на таблицу UserBase
+    /// </summary>
     public class UserMap : ClassMapping<UserBase>
     {
         /// <summary>
-        /// Инициализировать экземпляр <see cref="UserMap"/>
+        /// Конструктор маппинга UserBase
         /// </summary>
         public UserMap()
         {
-            Id(x => x.Id, x =>
-            {
-                x.Type(NHibernateUtil.Guid);
-                x.Generator(Generators.NativeGuid);
-                x.Column("Id");
-            });
-
-            Property(b => b.Login, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.Email, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.Password, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.Role, x =>
-            {
-                x.Type(NHibernateUtil.Int32);
-            });
-
-            Property(b => b.About, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.Phone, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.Name, x =>
-            {
-                x.Type(NHibernateUtil.String);
-            });
-
-            Property(b => b.RegisterDate, x =>
-            {
-                x.Type(NHibernateUtil.DateTime);
-            });
-
-            Set(property => property.Announcements,
-                collectionMapping =>
-                {
-                    collectionMapping.Key(keyMapping =>
-                    {
-                        keyMapping.Column("CreatorId");
-                    });
-                    collectionMapping.Cascade(Cascade.All);
+            Id(x => x.Id, map => map.Generator(Generators.NativeGuid));
+            Property(b => b.Login,
+                c => {
+                    c.NotNullable(true);
+                });
+            Property(b => b.Email);
+            Property(b => b.Password,
+                c => {
+                    c.NotNullable(true);
+                });
+            Property(b => b.Role,
+                c => {
+                    c.NotNullable(true);
+                });
+            Property(b => b.About);
+            Property(b => b.Phone);
+            Property(b => b.Name);
+            Property(b => b.RegisterDate,
+                c => {
+                    c.NotNullable(true);
+                });
+            Property(b => b.NotKill,
+                c => {
+                    c.NotNullable(true);
+                });
+            Bag(b => b.Announcements,
+                c => 
+                { 
+                    c.Key(k => k.Column("AnnouncementId")); 
+                    c.Inverse(true);
+                    c.Cascade(Cascade.All);
+                    c.Lazy(CollectionLazy.NoLazy); 
                 },
-                mapping =>
-                {
-                    mapping.OneToMany();
-                }
-            );
-
+                r => r.OneToMany());
             Table(nameof(UserBase));
         }
     }

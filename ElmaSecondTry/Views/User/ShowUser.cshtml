@@ -1,67 +1,66 @@
-﻿@model ElmaSecondTry.Models.User.ShowUser
-
-@{
-    ViewBag.Title = "ShowUser";
-}
-
-<h2>Информация о пользователе: @Model.Login</h2>
-<hr />
-<div>
-    @Html.ActionLink("Изменить логин и пароль", "EditAccount", "Account", new { id = Model.Id }, null)
-</div>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Login)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Login)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.About)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.About)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.RegisterDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RegisterDate)
-        </dd>
-
-        <div class="form-group">
-            @Html.ActionLink("Редактировать данные пользователя", "EditUser", "User", new { id = Model.Id }, new { @class = "control-label col-md-11" })
-            @Html.ActionLink("Удалить", "EditUser", "User", new { id = Model.Id }, new { @class = "control-label col-md-1" })
-        </div>
+﻿@model ElmaSecondTry.Models.UserModel.ShowUser
 
 
-    </dl>
-</div>
+                <h3> Информация о пользователе: <strong>@Model.Login</strong> </h3>
 
+                <hr />
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="control-label col-md-10" style="text-align : left; vertical-align : central">
+                            <dl class="dl-horizontal">
+                                <dt>@Html.DisplayNameFor(model => model.Login)</dt>
+                                <dd>@Html.DisplayFor(model => model.Login)</dd>
+
+                                <dt>@Html.DisplayNameFor(model => model.Role)</dt>
+                                <dd>@Html.DisplayFor(model => model.Role)</dd>
+
+                                <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+                                <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+                                <dt>@Html.DisplayNameFor(model => model.About)</dt>
+                                <dd>@Html.DisplayFor(model => model.About)</dd>
+
+                                <dt>@Html.DisplayNameFor(model => model.Phone)</dt>
+                                <dd>@Html.DisplayFor(model => model.Phone)</dd>
+
+                                <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+                                <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+                                <dt>@Html.DisplayNameFor(model => model.RegisterDate)</dt>
+                                <dd>@Html.DisplayFor(model => model.RegisterDate)</dd>
+                            </dl>
+                        </div>
+                        <div class="control-label col-md-2">
+                            @if (User.Identity.Name == Model.Login || User.IsInRole("Admin"))
+                            {
+                            <a href="@Url.Action("EditUser", "User", new { login = Model.Login })">
+                                <img src="~/Images/black-strong/Edit.png" width="40" title="Редактировать данные пользователя @Model.Login" />
+                            </a>
+                            <a href='@Url.Action("DeleteUser", "User", new { login = Model.Login })' onclick="return confirm('Вы уверены что желаете удалить пользователя @Model.Login ?')" >
+                                <img src="~/Images/black-strong/Delete.png" width="40" title="Удалить пользователя @Model.Login" />
+                            </a>
+                            }
+                        </div>
+                    </div>
+                    <hr />
+                    @Html.Partial("~/Views/Announcement/ListAnnouncement.cshtml", Model.Announcements)
+                    <div class="form-group">
+                        <div class="control-label col-md-10" style="text-align : left">
+                        </div>
+                        <div class="control-label col-md-2">
+
+                                @if (User.Identity.Name == Model.Login && (User.IsInRole("HR") || User.IsInRole("Employee")))
+                                {
+                                    <a href="@Url.Action("CreateVacancy", "Vacancy", new { login = Model.Login })">
+                                        <img src="~/Images/black-strong/Add_vac.png" width="40" title="Добавить объявление вакансии" />
+                                    </a>
+                                }
+                                @if (User.Identity.Name == Model.Login && (User.IsInRole("HR") || User.IsInRole("Jobseeker")))
+                                {
+                                    <a href="@Url.Action("CreateCandidate", "Candidate", new { login = Model.Login })">
+                                        <img src="~/Images/black-strong/Add_cand.png" width="40" title="Добавить объявление кандидата" />
+                                    </a>
+                                }
+                            </div>
+                    </div>
+                </div>

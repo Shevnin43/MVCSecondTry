@@ -12,6 +12,30 @@ html {
 body {
   margin: 0;
 }
+
+th.headerSortUp {
+    background-color: #5bc0de;
+}
+
+th.headerSortDown {
+    background-color: #5bc0de;
+}
+
+th.header {
+    cursor: pointer;
+    font-weight: bold;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding-left: 5px;
+    border-right: 2px solid #dad9c7;
+    margin-left: -1px;
+    background-color: #0ff;
+}
+
+table tr:nth-child(even) {
+    background-color: #faf2cc;
+}
+
 article,
 aside,
 details,
@@ -2632,7 +2656,7 @@ fieldset[disabled] input[type="checkbox"] {
   cursor: not-allowed;
 }
 input[type="file"] {
-  display: block;
+  display: none;
 }
 input[type="range"] {
   display: block;

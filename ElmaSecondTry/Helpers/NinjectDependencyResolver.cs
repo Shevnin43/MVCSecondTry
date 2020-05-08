@@ -9,6 +9,7 @@ using AutoMapper;
 using Ninject.Web.Common;
 using System.Web;
 using ElmaSecondTryBase.IRepositories;
+using ElmaSecondTryBase.Entities;
 
 namespace ElmaSecondTry.Helpers
 {
@@ -40,6 +41,8 @@ namespace ElmaSecondTry.Helpers
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<IAnnouncementRepository>().To<AnnouncementRepository>();
+
         }
     }
 }
