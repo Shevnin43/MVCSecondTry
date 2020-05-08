@@ -32,6 +32,36 @@ namespace ElmaSecondTry.Controllers
 
 
         /// <summary>
+        /// Отображение информации об объявлении 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Employee, HR, Admin, Jobseeker")]
+        public ActionResult ShowAnnouncement(Guid id)
+        {
+            var repositoryResult = _announcementRepository.FindAnnouncement(id);
+            if (repositoryResult.Status != ActionStatus.Success)
+            {
+                MessageForClient(repositoryResult.Status, repositoryResult.Message);
+                return RedirectToAction("Index", "Home");
+            }
+            var dbAnnouncement = repositoryResult.Entity.First();
+            if (dbAnnouncement is CandidateBase)
+            {
+                ViewBag.TypeOfAnnouncement = "Кандидата";
+                return View(_mapper.Map<CandidateBase, MyCandidate>(dbAnnouncement as CandidateBase));
+            }
+            if (dbAnnouncement is VacancyBase)
+            {
+                ViewBag.TypeOfAnnouncement = "Вакансии";
+                ViewBag.TimeJob = General.Employments[(dbAnnouncement as VacancyBase).Employment];
+                return View(_mapper.Map<VacancyBase, MyVacancy>(dbAnnouncement as VacancyBase));
+            }
+            return RedirectToAction("Index", "Home");
+
+        }
+
+        /// <summary>
         /// Вывод формы выборки объявлений
         /// </summary>
         /// <returns></returns>

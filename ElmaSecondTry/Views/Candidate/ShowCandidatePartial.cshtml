@@ -1,0 +1,42 @@
+﻿@model ElmaSecondTry.Models.CandidateModel.MyCandidate
+
+@if (Model.Photo != null && Model.Photo.Length != 0)
+{
+    <dt> <img src="data:image;base64,@System.Convert.ToBase64String(Model.Photo)" width="100" height="100" /> </dt>
+    <dd></dd>
+}
+<dt>@Html.DisplayNameFor(model => model.OwnerLogin)</dt>
+<dd>@Html.ActionLink(Model.OwnerLogin, "ShowUser", "User", new { login = Model.OwnerLogin }, null)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.CreationDate)</dt>
+<dd>@Html.DisplayFor(model => model.CreationDate)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.EditorLogin)</dt>
+<dd>@Html.ActionLink(Model.EditorLogin, "ShowUser", "User", new { login = Model.EditorLogin }, null)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.LastEdited)</dt>
+<dd>@Html.DisplayFor(model => model.LastEdited)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.FirstName)</dt>
+<dd>@Html.DisplayFor(model => model.FirstName)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.LastName)</dt>
+<dd>@Html.DisplayFor(model => model.LastName)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.Patronymic)</dt>
+<dd>@Html.DisplayFor(model => model.Patronymic)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.About)</dt>
+<dd>@Html.DisplayFor(model => model.About)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.BirthDay)</dt>
+<dd>@Model.BirthDay.ToString("dd.MM.yyyy")</dd>
+
+<dt>@Html.DisplayNameFor(model => model.Education)</dt>
+<dd>@Html.DisplayFor(model => model.Education)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.Experience)</dt>
+<dd>@Html.DisplayFor(model => model.Experience)</dd>
+
+<dt>@Html.DisplayNameFor(model => model.Profession)</dt>
+<dd>@Html.DisplayFor(model => model.Profession)</dd>

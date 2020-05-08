@@ -5,10 +5,12 @@ using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace ElmaSecondTryNHibernate.Repositories
 {
+    /// <summary>
+    /// Класс репозитория для работы сущностей CandidateBase и VacancyBase с базой данных
+    /// </summary>
     public class AnnouncementRepository : IAnnouncementRepository
     {
         private readonly ISessionFactory _sessionFactory;
@@ -41,14 +43,38 @@ namespace ElmaSecondTryNHibernate.Repositories
                 var session = _sessionFactory.OpenSession();
                 using (session.BeginTransaction())
                 {
-                    session.Save(savingEntity);
+                    if (savingEntity is CandidateBase)
+                    {
+                        session.Save(savingEntity);
+                    }
+
+                    if (savingEntity is VacancyBase)
+                    {
+                        var query = session.CreateSQLQuery("AddVacancy :@id, :@announcementId, :@creationDate, :@lastEdited, :@lastEditorId, :@type, :@isBlocked, :@name, :@about, :@employment, :@requirement, :@isOpen, :@validDay, :@salary");
+                        query.SetGuid("@id", savingEntity.Id);
+                        query.SetGuid("@announcementId", savingEntity.Creator.Id);
+                        query.SetDateTime("@creationDate", savingEntity.CreationDate);
+                        query.SetDateTime("@lastEdited", savingEntity.LastEdited);
+                        query.SetGuid("@lastEditorId", savingEntity.LastEditor.Id);
+                        query.SetInt32("@type", (int)savingEntity.Type);
+                        query.SetBoolean("@isBlocked", savingEntity.IsBlocked);
+                        query.SetString("@name", (savingEntity as VacancyBase).Name);
+                        query.SetString("@about", (savingEntity as VacancyBase).About);
+                        query.SetInt32("@employment", (int)(savingEntity as VacancyBase).Employment);
+                        query.SetString("@requirement", (savingEntity as VacancyBase).Requirement);
+                        query.SetBoolean("@isOpen", (savingEntity as VacancyBase).IsOpen);
+                        query.SetDateTime("@validDay", (savingEntity as VacancyBase).ValidDay);
+                        query.SetInt32("@salary", (savingEntity as VacancyBase).Salary);
+                        query.ExecuteUpdate();
+
+                    }
                     session.Transaction.Commit();
                 }
                 var savedEntity = session.Get<IAnnouncement>(savingEntity.Id);
                 session.Close();
-                return savedEntity == savingEntity
+                return savedEntity != null
                 ? new RepositoryResult { Status = ActionStatus.Success, Message = $"Объявление ({savingEntity.Id}) успешно добавлено.", Entity = new IAnnouncement[] { savedEntity } }
-                : new RepositoryResult { Status = ActionStatus.Warning, Message = $"Не удалось обновить данные объявления {savedEntity.Id}.", Entity = null };
+                : new RepositoryResult { Status = ActionStatus.Warning, Message = $"Не удалось добавить объявление {savedEntity.Id}.", Entity = null };
             }
             catch (Exception ex)
             {
