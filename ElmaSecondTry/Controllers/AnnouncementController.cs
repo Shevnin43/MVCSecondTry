@@ -199,7 +199,7 @@ namespace ElmaSecondTry.Controllers
             repositoryResult = _announcementRepository.UpdateAnnouncement(userFromDb as IAnnouncement);
             MessageForClient(repositoryResult.Status, repositoryResult.Message);
             return repositoryResult.Status == ActionStatus.Success 
-                ? RedirectToAction($"Show{(userFromDb as IAnnouncement).Type.ToString()}", $"{(userFromDb as IAnnouncement).Type.ToString()}", new { id }) 
+                ? RedirectToAction("ShowAnnouncement", "Announcement", new { id }) 
                 : RedirectToAction("Index", "Home");
         }
 

@@ -21,6 +21,7 @@ namespace ElmaSecondTry.Models.AccountModel
         /// </summary>
         [Display(Name = "Новый пароль")]
         [DataType(DataType.Password)]
+        [MinLength(8, ErrorMessage = "Минимальная длина пароля - не менее 8 символов.")]
         public string NewPassword { get; set; }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace ElmaSecondTry.Models.AccountModel
 {
@@ -9,6 +10,7 @@ namespace ElmaSecondTry.Models.AccountModel
         /// </summary>
         [Display(Name = "Логин")]
         [Required(ErrorMessage = "Поле должно быть установлено")]
+        [MinLength(8, ErrorMessage = "Минимальная длина логина - не менее 8 символов.")]
         public string Login { get; set; }
 
         /// <summary>
@@ -17,6 +19,7 @@ namespace ElmaSecondTry.Models.AccountModel
         [Display(Name = "Пароль")]
         [Required(ErrorMessage = "Поле должно быть установлено")]
         [DataType(DataType.Password)]
+        [MinLength(8, ErrorMessage ="Минимальная длина пароля - не менее 8 символов.")]
         public string Password { get; set; }
 
     }

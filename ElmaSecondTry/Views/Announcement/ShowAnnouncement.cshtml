@@ -27,7 +27,7 @@
             @if (User.Identity.Name == Model.OwnerLogin || User.IsInRole("Admin"))
             {
                 <div valign="top" align="right" class="control-label col-md-3">
-                    <a href="@Url.Action($"Edit{Model.Type.ToString()}", "{Model.Type.ToString()}", new { id = Model.Id})">
+                    <a href="@Url.Action($"Edit{Model.Type.ToString()}", $"{Model.Type.ToString()}", new { id = Model.Id})">
                         <img src="~/Images/black-strong/Edit.png" width="40" title="Редактировать объявление @Model.Id" />
                     </a>
                     <a href='@Url.Action("DeleteAnnouncement", "Announcement", new { id = Model.Id, login = Model.OwnerLogin})' onclick="return confirm('Вы уверены что желаете удалить объявление @Model.Id ?')">
