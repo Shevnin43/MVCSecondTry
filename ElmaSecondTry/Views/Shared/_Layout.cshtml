@@ -19,16 +19,24 @@
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Пользовательская часть", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Структура", "About", "Home")</li>
                     @if (User.Identity.IsAuthenticated && User.IsInRole(UserRoles.Admin.ToString()))
                     {
-                        <li>@Html.ActionLink("Пользователи", "FilterUser", "User")</li>
+                        <li>
+                            <a href="@Url.Action("FilterUser", "User")">
+                                <strong>Пользователи</strong>
+                            </a>
+                        </li>
                     }
                     @if (User.Identity.IsAuthenticated && !User.IsInRole(UserRoles.All.ToString()) && !User.IsInRole(UserRoles.None.ToString()))
                     {
-                        <li>@Html.ActionLink("Объявления", "AnnouncementsSelect", "Announcement")</li>
+                        <li>
+                            <a href="@Url.Action("AnnouncementsSelect", "Announcement")">
+                                <strong>Объявления</strong>
+                            </a>
+                        </li>
                     }
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
