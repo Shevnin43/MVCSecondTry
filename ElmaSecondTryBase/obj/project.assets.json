@@ -945,11 +945,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+      "projectUniqueName": "D:\\Projects\\ElmaSecondTry\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
       "projectName": "ElmaSecondTryBase",
-      "projectPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+      "projectPath": "D:\\Projects\\ElmaSecondTry\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\obj\\",
+      "outputPath": "D:\\Projects\\ElmaSecondTry\\MVCSecondTry\\ElmaSecondTryBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
