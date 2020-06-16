@@ -42,15 +42,6 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.Web.Infrastructure/1.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
-        }
-      },
       "NETStandard.Library/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -64,47 +55,6 @@
         },
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
-        }
-      },
-      "Ninject/3.2.0": {
-        "type": "package",
-        "compile": {
-          "lib/net45-full/Ninject.dll": {}
-        },
-        "runtime": {
-          "lib/net45-full/Ninject.dll": {}
-        }
-      },
-      "Ninject.MVC3/3.2.1": {
-        "type": "package",
-        "dependencies": {
-          "Ninject": "[3.2.0, 3.3.0)",
-          "Ninject.Web.Common.WebHost": "3.0.0"
-        },
-        "compile": {
-          "lib/net45-full/Ninject.Web.Mvc.dll": {}
-        },
-        "runtime": {
-          "lib/net45-full/Ninject.Web.Mvc.dll": {}
-        }
-      },
-      "Ninject.Web.Common/3.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Ninject": "[3.2.0, 3.3.0)"
-        },
-        "compile": {
-          "lib/net45-full/Ninject.Web.Common.dll": {}
-        },
-        "runtime": {
-          "lib/net45-full/Ninject.Web.Common.dll": {}
-        }
-      },
-      "Ninject.Web.Common.WebHost/3.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Ninject.Web.Common": "[3.2.0, 3.3.0)",
-          "WebActivatorEx": "[2.0.0, 3.0.0)"
         }
       },
       "System.IO/4.3.0": {
@@ -204,18 +154,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
-        }
-      },
-      "WebActivatorEx/2.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Web.Infrastructure": "1.0.0"
-        },
-        "compile": {
-          "lib/net40/WebActivatorEx.dll": {}
-        },
-        "runtime": {
-          "lib/net40/WebActivatorEx.dll": {}
         }
       }
     }
@@ -334,18 +272,6 @@
         "microsoft.netcore.targets.1.1.0.nupkg.sha512",
         "microsoft.netcore.targets.nuspec",
         "runtime.json"
-      ]
-    },
-    "Microsoft.Web.Infrastructure/1.0.0": {
-      "sha512": "FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
-      "type": "package",
-      "path": "microsoft.web.infrastructure/1.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/Microsoft.Web.Infrastructure.dll",
-        "microsoft.web.infrastructure.1.0.0.nupkg.sha512",
-        "microsoft.web.infrastructure.nuspec"
       ]
     },
     "NETStandard.Library/2.0.3": {
@@ -475,79 +401,6 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
-      ]
-    },
-    "Ninject/3.2.0": {
-      "sha512": "CN7i6J/a1y85jVdeg0FkH5Obqo47SVQBU5929NPmlsi/AbE6ofJoStPHJco4H3aSI696obvoDmFxbZ+tfz7m6A==",
-      "type": "package",
-      "path": "ninject/3.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net35/Ninject.dll",
-        "lib/net35/Ninject.xml",
-        "lib/net40/Ninject.dll",
-        "lib/net40/Ninject.xml",
-        "lib/net45-full/Ninject.dll",
-        "lib/net45-full/Ninject.xml",
-        "lib/sl2/Ninject.dll",
-        "lib/sl2/Ninject.xml",
-        "lib/sl3-wp/Ninject.dll",
-        "lib/sl3-wp/Ninject.xml",
-        "lib/sl3/Ninject.dll",
-        "lib/sl3/Ninject.xml",
-        "lib/sl4-windowsphone71/Ninject.dll",
-        "lib/sl4-windowsphone71/Ninject.xml",
-        "lib/sl4/Ninject.dll",
-        "lib/sl4/Ninject.xml",
-        "lib/sl5/Ninject.dll",
-        "lib/sl5/Ninject.xml",
-        "ninject.3.2.0.nupkg.sha512",
-        "ninject.nuspec"
-      ]
-    },
-    "Ninject.MVC3/3.2.1": {
-      "sha512": "/6rUOixiAPdBNhsl3KaOjaX1KMdizLsufIeO9k4R3kY0NIivchlLorCvb3Ks+BIvV6KZ85KPtKBBc6tHX0W7Kg==",
-      "type": "package",
-      "path": "ninject.mvc3/3.2.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40-full/Ninject.Web.Mvc.dll",
-        "lib/net40-full/Ninject.Web.Mvc.xml",
-        "lib/net45-full/Ninject.Web.Mvc.dll",
-        "lib/net45-full/Ninject.Web.Mvc.xml",
-        "ninject.mvc3.3.2.1.nupkg.sha512",
-        "ninject.mvc3.nuspec"
-      ]
-    },
-    "Ninject.Web.Common/3.2.0": {
-      "sha512": "0isoniPCLBWDzFo3f3DrTfo2p/hDxmTzY7sqkIpJuTfXwzDmpRJmfJbK2FqHCgPKmgbsQKPB1JSK0e1HN2FbHw==",
-      "type": "package",
-      "path": "ninject.web.common/3.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net35-full/Ninject.Web.Common.dll",
-        "lib/net35-full/Ninject.Web.Common.xml",
-        "lib/net40-full/Ninject.Web.Common.dll",
-        "lib/net40-full/Ninject.Web.Common.xml",
-        "lib/net45-full/Ninject.Web.Common.dll",
-        "lib/net45-full/Ninject.Web.Common.xml",
-        "ninject.web.common.3.2.0.nupkg.sha512",
-        "ninject.web.common.nuspec"
-      ]
-    },
-    "Ninject.Web.Common.WebHost/3.2.0": {
-      "sha512": "ridsl0COq/FwJt+7MEmp2AJ74ysopHpEb6hhEBuXg8dJCgfD2gd/hvXHPls3dDgYaVqoAfTn9JwCgzQ2t3z1EQ==",
-      "type": "package",
-      "path": "ninject.web.common.webhost/3.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Content/App_Start/NinjectWebCommon.cs.pp",
-        "ninject.web.common.webhost.3.2.0.nupkg.sha512",
-        "ninject.web.common.webhost.nuspec"
       ]
     },
     "System.IO/4.3.0": {
@@ -1077,25 +930,12 @@
         "system.threading.tasks.4.3.0.nupkg.sha512",
         "system.threading.tasks.nuspec"
       ]
-    },
-    "WebActivatorEx/2.0.0": {
-      "sha512": "B3ZbOEaGCqa7BLjZZw6wqprOJJMvP39h7Lr5ADkJOCPKHppAaCre34kR63/gfgpM4htzTfgm/pEw7r7qqqMgIA==",
-      "type": "package",
-      "path": "webactivatorex/2.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/net40/WebActivatorEx.dll",
-        "webactivatorex.2.0.0.nupkg.sha512",
-        "webactivatorex.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "AutoMapper >= 9.0.0",
-      "NETStandard.Library >= 2.0.3",
-      "Ninject.MVC3 >= 3.2.1"
+      "NETStandard.Library >= 2.0.3"
     ]
   },
   "packageFolders": {
@@ -1105,11 +945,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+      "projectUniqueName": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
       "projectName": "ElmaSecondTryBase",
-      "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+      "projectPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\obj\\",
+      "outputPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -1149,10 +989,6 @@
             "target": "Package",
             "version": "[2.0.3, )",
             "autoReferenced": true
-          },
-          "Ninject.MVC3": {
-            "target": "Package",
-            "version": "[3.2.1, )"
           }
         },
         "imports": [
@@ -1168,67 +1004,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Ninject.MVC3 3.2.1 зависит от Ninject.Web.Common.WebHost (>= 3.0.0), но Ninject.Web.Common.WebHost 3.0.0 не найден. Использовано наилучшее приближенное соответствие Ninject.Web.Common.WebHost 3.2.0.",
-      "libraryId": "Ninject.Web.Common.WebHost",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"Microsoft.Web.Infrastructure 1.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETStandard,Version=v2.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "Microsoft.Web.Infrastructure",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"Ninject 3.2.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETStandard,Version=v2.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "Ninject",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"Ninject.MVC3 3.2.1\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETStandard,Version=v2.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "Ninject.MVC3",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"Ninject.Web.Common 3.2.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETStandard,Version=v2.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "Ninject.Web.Common",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Пакет \"WebActivatorEx 2.0.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETStandard,Version=v2.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "WebActivatorEx",
-      "targetGraphs": [
-        ".NETStandard,Version=v2.0"
-      ]
-    }
-  ]
+  }
 }

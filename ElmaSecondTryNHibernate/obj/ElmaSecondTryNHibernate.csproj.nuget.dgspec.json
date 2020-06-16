@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj": {}
+    "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {
+    "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+        "projectUniqueName": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
         "projectName": "ElmaSecondTryBase",
-        "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+        "projectPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\obj\\",
+        "outputPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -51,10 +51,6 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
-            },
-            "Ninject.MVC3": {
-              "target": "Package",
-              "version": "[3.2.1, )"
             }
           },
           "imports": [
@@ -71,14 +67,14 @@
         }
       }
     },
-    "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj": {
+    "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj",
+        "projectUniqueName": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj",
         "projectName": "ElmaSecondTryNHibernate",
-        "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj",
+        "projectPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryNHibernate\\ElmaSecondTryNHibernate.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryNHibernate\\obj\\",
+        "outputPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryNHibernate\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -98,8 +94,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {
-                "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj"
+              "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {
+                "projectPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj"
               }
             }
           }
@@ -126,6 +122,10 @@
             "NHibernate": {
               "target": "Package",
               "version": "[5.2.7, )"
+            },
+            "Ninject": {
+              "target": "Package",
+              "version": "[3.2.0, )"
             }
           },
           "imports": [

@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Ninject.MVC3" Version="3.2.1" />
   </ItemGroup>
 
 </Project>

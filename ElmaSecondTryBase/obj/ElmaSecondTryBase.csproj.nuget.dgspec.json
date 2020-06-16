@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {}
+    "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {
+    "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+        "projectUniqueName": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
         "projectName": "ElmaSecondTryBase",
-        "projectPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
+        "projectPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\ElmaSecondTryBase.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\ElmaSecondTry\\ElmaSecondTryBase\\obj\\",
+        "outputPath": "D:\\Projects\\ElmaRestart\\MVCSecondTry\\ElmaSecondTryBase\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -51,10 +51,6 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
-            },
-            "Ninject.MVC3": {
-              "target": "Package",
-              "version": "[3.2.1, )"
             }
           },
           "imports": [

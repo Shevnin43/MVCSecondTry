@@ -9,3 +9,14 @@ D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaS
 D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\ElmaSecondTryNHibernate.pdb
 D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.dll
 D:\Projects\ElmaSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.pdb
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\ElmaSecondTryNHibernate.deps.json
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\ElmaSecondTryNHibernate.dll
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\ElmaSecondTryNHibernate.pdb
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\ElmaSecondTryBase.dll
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\bin\Debug\netstandard2.0\ElmaSecondTryBase.pdb
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.csprojAssemblyReference.cache
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.AssemblyInfoInputs.cache
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.AssemblyInfo.cs
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.csproj.CopyComplete
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.dll
+D:\Projects\ElmaRestart\MVCSecondTry\ElmaSecondTryNHibernate\obj\Debug\netstandard2.0\ElmaSecondTryNHibernate.pdb
